@@ -1,0 +1,6 @@
+# ignore the folder with the images of frames
+/Video-to-frames/frames
+
+# ignore the folder with the video file
+/Video-to-frames/video_to_split
+
