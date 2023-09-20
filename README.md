@@ -14,3 +14,6 @@ Key Features:
 
 Additonal Libraries:
 * SciKit
+
+Additional Resources:
+* https://web.archive.org/web/20161010175545/https://tobilehman.com/blog/2013/01/20/extract-array-of-frames-from-mp4-using-python-opencv-bindings/
