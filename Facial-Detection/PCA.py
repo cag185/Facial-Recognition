@@ -7,6 +7,10 @@ import matplotlib.pyplot as plt
 import os
 import cv2
 
+#import a standard scalar
+from sklearn.preprocessing import StandardScaler
+scalar = StandardScaler()
+
 # function for importing the image and its data
 def image_data(imgPath, disp=True):
     original_img = Image.open(imgPath)
