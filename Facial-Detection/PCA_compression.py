@@ -60,7 +60,7 @@ r_arr = pca_r.inverse_transform(trans_pca_r)
 
 # merge the photos back to one
 img_reduced = (cv2.merge((b_arr, g_arr, r_arr)))
-# img_to_write = np.clip((img_reduced / img_reduced.max()) * 255, 1, 255).astype(np.uint16)
+img_to_write = np.clip((img_reduced / img_reduced.max()) * 255, 1, 255).astype(np.uint8)
 
 # DONT NEED TO PLOT AND SHOW EACH IMAGE
 fig = plt.figure(figsize = (10, 7.2))
@@ -75,11 +75,11 @@ plt.imshow(img_reduced)
 plt.show()
 
 # save the file
-# fileDest = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Facial-Profile-Databank/user1/face_%d.jpg" % frame_count
-fileDest = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Facial-Profile-Databank/user2/face_%d.jpg" % frame_count
+fileDest = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Facial-Profile-Databank/Flower/flower%f.png" % n_var
+# fileDest = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Facial-Profile-Databank/user2/face_%d.jpg" % frame_count
 
 
-cv2.imwrite(fileDest, img_reduced)
+cv2.imwrite(fileDest, img_to_write)
 # Increase the frame counter
 frame_count+=1
 
