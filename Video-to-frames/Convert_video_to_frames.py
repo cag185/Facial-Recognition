@@ -10,7 +10,7 @@ sub_files = os.listdir(parent_folder)
 
 # create paths
 output_parent_directory = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Video-to-frames/frames/"
-output_arr = ["caleb_1/", "caleb_2/", "lucas/", "cam/"]
+# output_arr = ["caleb_1/", "caleb_2/", "lucas/", "cam/"]
 
 file_count = 0
 for subfile in sub_files:

@@ -12,7 +12,9 @@ import os
 
 # TODO- for each image in the video capture do the PCA dimensionality reduction
 # load in the image
-parent_img_folder = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Video-to-frames/frames/SampleFrames/"
+# parent_img_folder = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Video-to-frames/frames/Caleb_face_2/"
+parent_img_folder = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Video-to-frames/frames/Hudson_face/"
+
 # parent_img_folder = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Video-to-frames/frames/FlowerFrame/"
 img_folder_arr = os.listdir(parent_img_folder)
 frame_count = 0
@@ -76,8 +78,8 @@ for i in img_folder_arr:
     # plt.show()
 
     # save the file
-    # fileDest = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Facial-Profile-Databank/Flower/flower%f.png" % n_var
-    fileDest = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Facial-Profile-Databank/user2/face_%d.jpg" % frame_count
+    fileDest = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Facial-Profile-Databank/Hudson_1/face_%d.jpg" % frame_count
+    # fileDest = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Facial-Profile-Databank/Caleb_2/face_%d.jpg" % frame_count
     cv2.imwrite(fileDest, img_reduced_for_display)
     # Increase the frame counter
     frame_count+=1
