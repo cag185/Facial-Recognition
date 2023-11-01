@@ -5,7 +5,8 @@ import os
 
 # make the video bit more dynamic
 parent_folder = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Video-to-frames/video_to_split/"
-sub_files = ["Caleb_face.mp4", "Caleb_face_2.mp4", "Lucas_face.mp4", "Cam_face.mp4"]
+sub_files = os.listdir(parent_folder)
+# sub_files = ["Caleb_face.mp4", "Caleb_face_2.mp4", "Lucas_face.mp4", "Cam_face.mp4"]
 
 # create paths
 output_parent_directory = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Video-to-frames/frames/"
@@ -24,7 +25,11 @@ for subfile in sub_files:
 
     # for each of the above folder paths create the folders 
     # for output in output_arr:
-    test_output = output_parent_directory + output_arr[file_count]
+    # make this more dynamic
+    folder_name = output_parent_directory + subfile
+
+    test_output = folder_name[:-4] + "/"
+    # test_output = output_parent_directory + output_arr[file_count]
     doesExist = os.path.exists(test_output)
     if not doesExist:
         os.makedirs(test_output)
