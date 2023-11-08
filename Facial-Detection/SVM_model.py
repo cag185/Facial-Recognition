@@ -7,7 +7,7 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import svm
-from sklearn.model_selection import GridSearchCV
+# from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
@@ -68,27 +68,28 @@ x_train, x_test, y_train, y_test = train_test_split(
     x, y, test_size=0.20, random_state=77, stratify=y)
 
 # define the params for gridSearchCv
-param_grid = {'C': [0.1, 1, 10, 100],
-              'gamma': [0.0001, 0.001, 0.1, 1],
-              'kernel': ['rbf', 'poly']}
+# param_grid = {'C': [0.1, 1, 10, 100],
+#               'gamma': [0.0001, 0.001, 0.1, 1],
+#               'kernel': ['rbf', 'poly']}
 
-# create the SVM classified
-svc = svm.LinearSVC(probability=True)
+# create the SVM classifier
+lsvc = svm.LinearSVC(verbose=1, dual=auto)
+print(lsvc)
 
 # create a model using the grid parameters we defined
-model = GridSearchCV(svc, param_grid=param_grid, verbose=1)
+# model = GridSearchCV(svc, param_grid=param_grid, verbose=1)
 
 # fit the model to the data
-model.fit(x_train, y_train)
+lsvc.fit(x_train, y_train)
 
 print("The model has been successfully trained")
 
 # test the model using the testing data
-y_pred = model.predict(x_test)
+y_pred = lsvc.predict(x_test)
 
 # calculate the accuracy of the model
 # compare the actual vs the prediction
-accurary = accuracy_score(y_pred, y_test)
+accuracy = accuracy_score(y_pred, y_test)
 print(f"The model accuracy for hudson vs caleb is {accuracy * 100}% accurate")
 
 
