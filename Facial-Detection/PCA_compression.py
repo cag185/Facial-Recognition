@@ -9,6 +9,7 @@ import sys  # used to get size data
 import cv2
 import math
 import os
+from tqdm import tqdm
 
 # TODO- for each image in the video capture do the PCA dimensionality reduction
 # load in the image
@@ -18,15 +19,19 @@ main_img_folder = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 
 parent_img_folder_arr = os.listdir(main_img_folder)
 
 # for each person
-for person_image_folder in parent_img_folder_arr:
+for person_image_folder in tqdm(parent_img_folder_arr):
 
+    # create the full dir for the individual folders
+    new_folder_path = main_img_folder + person_image_folder + "/"
     # parent_img_folder = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Video-to-frames/frames/FlowerFrame/"
-    img_folder_arr = os.listdir(person_image_folder)
+    img_folder_arr = os.listdir(new_folder_path)
     frame_count = 0
     # imgPath = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Video-to-frames/frames/FaceFrames/frame145.jpg"
     # imgPath = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Video-to-frames/frames/FlowerFrame/flower.jpg"
-    for i in img_folder_arr:
-        imgPath = parent_img_folder + i
+    for i in tqdm(img_folder_arr):
+        # create the new folder appended by the image
+        # new_folder_path_img = new_folder_path + i
+        imgPath = new_folder_path + i
         # tab from here down
         # imgPath = parent_img_folder +
         img = cv2.cvtColor(cv2.imread(imgPath), cv2.COLOR_BGR2RGB)
@@ -83,8 +88,16 @@ for person_image_folder in parent_img_folder_arr:
         # plt.show()
 
         # save the file
-        fileDestFolder = ""
-        fileDest = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Facial-Profile-Databank/Hudson_1/face_%d.jpg" % frame_count
+        fileDestFolder = f"C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Facial-Profile-Databank/{
+            person_image_folder}"
+        fileDest = f"C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Facial-Profile-Databank/{
+            person_image_folder}/face_%d.jpg" % frame_count
+
+        # check if the folder destination exists and if not, create the folder
+        doesExist = os.path.exists(fileDestFolder)
+        if not doesExist:
+            os.makedirs(fileDestFolder)
+
         # fileDest = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Facial-Profile-Databank/Caleb_2/face_%d.jpg" % frame_count
         cv2.imwrite(fileDest, img_reduced_for_display)
         # Increase the frame counter
