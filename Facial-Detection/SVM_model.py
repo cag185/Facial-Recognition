@@ -13,10 +13,14 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
 import pandas as pd
 
+# @TODO - need to add in the data binding so that the variables are accessable in each function
+
 # create a class for the SVM model
+# on init, the class will load the data and train the model
 
 
 class generic_SVM_model:
+
     def __init__(self):
         # import the data as an array
         parent_folder = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Facial-Profile-Databank/"
@@ -26,7 +30,6 @@ class generic_SVM_model:
         # label array -- holds the label of the images
         label_arr = []
 
-    def loadData(self):
         # iterating var
         person_label = 0
         # per each person that has a facial profile
@@ -68,37 +71,42 @@ class generic_SVM_model:
             x = df.iloc[:, :-1]
             y = df.iloc[:, -1]
 
-    def trainModel(self):
         # split the data into testing and training data
         x_train, x_test, y_train, y_test = train_test_split(
             x, y, test_size=0.20, random_state=77, stratify=y)
+        # assing this data to self
+        self.x_train = x_train
+        self.x_test = x_test
+        self.y_train = y_train
+        self.y_test = y_test
 
         # create the SVM classifier
-        lsvc = svm.LinearSVC(verbose=1, dual=auto)
-        print(lsvc)
-
+        lsvc = svm.LinearSVC(verbose=1, dual="auto")
+        print("the classifier has been created")
         # fit the model to the data
         lsvc.fit(x_train, y_train)
+        print("The classifier has been trained")
+        # assign this to self
+        self.lsvc = lsvc
 
         print("The model has been successfully trained")
 
-    def prediction(self):
+    def prediction(self, x_test):
         # test the model using the testing data
-        y_pred = lsvc.predict(x_test)
+        y_pred = self.lsvc.predict(x_test)
+        self.y_pred = y_pred
+        return y_pred
 
     def getAccuracy(self):
         # calculate the accuracy of the model
         # compare the actual vs the prediction
-        accuracy = accuracy_score(y_pred, y_test)
+        accuracy = accuracy_score(self.y_pred, self.y_test)
         print(f"The model accuracy is {accuracy * 100}% accurate")
-
-    def runModel(self):
-        self.loadData()
-        self.trainModel()
-        self.prediction()
-        self.getAccuracy()
 
 
 # create a new instance of the model class
 model1 = generic_SVM_model()
-model1.runModel()
+# feed it a value to test on
+x_data = model1.x_test
+output = model1.prediction
+acc = model1.getAccuracy()
