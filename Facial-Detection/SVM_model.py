@@ -12,6 +12,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
 import pandas as pd
+from tqdm import tqdm
 
 # @TODO - need to add in the data binding so that the variables are accessable in each function
 
@@ -81,32 +82,32 @@ class generic_SVM_model:
         self.y_test = y_test
 
         # create the SVM classifier
-        lsvc = svm.LinearSVC(verbose=1, dual="auto")
+        lsvc = svm.LinearSVC(verbose=1, dual="auto", max_iter=10000)
         print("the classifier has been created")
         # fit the model to the data
-        lsvc.fit(x_train, y_train)
+        # added in tqdm to get a sense of how long it takes to train the model
+        tqdm(lsvc.fit(x_train, y_train))
         print("The classifier has been trained")
         # assign this to self
         self.lsvc = lsvc
-
         print("The model has been successfully trained")
 
     def prediction(self, x_test):
         # test the model using the testing data
-        y_pred = self.lsvc.predict(x_test)
+        y_pred = tqdm(self.lsvc.predict(x_test))
         self.y_pred = y_pred
         return y_pred
 
-    def getAccuracy(self):
+    def getAccuracy(self, y_pred):
         # calculate the accuracy of the model
         # compare the actual vs the prediction
-        accuracy = accuracy_score(self.y_pred, self.y_test)
+        accuracy = accuracy_score(y_pred, self.y_test)
         print(f"The model accuracy is {accuracy * 100}% accurate")
 
 
 # create a new instance of the model class
 model1 = generic_SVM_model()
 # feed it a value to test on
-x_data = model1.x_test
-output = model1.prediction
-acc = model1.getAccuracy()
+x_test_data = model1.x_test
+output = model1.prediction(x_test_data)
+acc = model1.getAccuracy(output)
