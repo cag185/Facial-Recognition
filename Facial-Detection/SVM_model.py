@@ -16,14 +16,14 @@ import pickle
 import matplotlib.pyplot as plt
 import cv2
 
-# create a class for the SVM model
-# on init, the class will load the data and train the model
-
-# created a second model that has more users inside of it.
+# variable to store the training accuracy
+training_acc = 0
 
 
 class SVM_facial_detection():
     # import the data as an array
+    training_acc = 0
+
     def train_model(self):
         parent_folder = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Facial-Profile-Databank/"
         face_list = os.listdir(parent_folder)
@@ -76,17 +76,12 @@ class SVM_facial_detection():
         # split the data into testing and training data
         x_train, x_test, y_train, y_test = train_test_split(
             x, y, test_size=0.20, random_state=77, stratify=y)
-        # assing this data to self
-        # self.x_train = x_train
-        # self.x_test = x_test
-        # self.y_train = y_train
-        # self.y_test = y_test
 
         # create the SVM classifier
-        lsvc = svm.LinearSVC(verbose=1, dual="auto", max_iter=10000)
+        lsvc = svm.LinearSVC(dual="auto", max_iter=10000)
         print("the classifier has been created")
         # fit the model to the data
-        (lsvc.fit(x_train, y_train))
+        lsvc.fit(x_train, y_train)
         print("The classifier has been trained")
 
         self.lsvc = lsvc
@@ -96,7 +91,8 @@ class SVM_facial_detection():
         y_pred = (lsvc.predict(x_test))
         # compare the actual vs the prediction
         # this is for the whole data brought in
-        accuracy = accuracy_score(y_pred, y_test)
+        training_acc = accuracy_score(y_pred, y_test)
+        lsvc.__setattr__("training_data_accuracy", training_acc)
 
         # once we have created the model, we want to save it
         with open('SVM_model_larger.pkl', 'wb') as file:
@@ -105,7 +101,6 @@ class SVM_facial_detection():
     # create the function for prediction/accuracy
     def predict(self, x_data):
         # load the model from storage
-        # TODO need to change the model to load the new one
         with open('SVM_model_larger.pkl', 'rb') as file2:
             lsvc_new = pickle.load(file2)
             return lsvc_new.predict(x_data)
@@ -113,6 +108,8 @@ class SVM_facial_detection():
 
 # create an instance of the object
 svm_object = SVM_facial_detection()
+print(f"training accuracy: {svm_object.__getattribute__(
+    "training_data_accuracy")}% accurate")
 # svm_object.train_model()
 
 # function for loading in a file and converting it into side
