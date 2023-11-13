@@ -19,6 +19,8 @@ import cv2
 # create a class for the SVM model
 # on init, the class will load the data and train the model
 
+# created a second model that has more users inside of it.
+
 
 class SVM_facial_detection():
     # import the data as an array
@@ -97,13 +99,14 @@ class SVM_facial_detection():
         accuracy = accuracy_score(y_pred, y_test)
 
         # once we have created the model, we want to save it
-        with open('SVM_model.pkl', 'wb') as file:
+        with open('SVM_model_larger.pkl', 'wb') as file:
             pickle.dump(lsvc, file)
 
     # create the function for prediction/accuracy
     def predict(self, x_data):
         # load the model from storage
-        with open('SVM_model.pkl', 'rb') as file2:
+        # TODO need to change the model to load the new one
+        with open('SVM_model_larger.pkl', 'rb') as file2:
             lsvc_new = pickle.load(file2)
             return lsvc_new.predict(x_data)
 
@@ -115,19 +118,67 @@ svm_object = SVM_facial_detection()
 # function for loading in a file and converting it into side
 # new_photo = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Caleb_Test_1.jpg"
 # new_photo = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Caleb_Test_2.jpg"
-new_photo = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Caleb_Test_3.jpg"
+# new_photo = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Caleb_Test_3.jpg"
 
 
 def loadNewPhoto(new_photo):
     # change the photo to be an nparray
     opened_img = np.asarray(Image.open(new_photo).resize((500, 500)))
     # reshape
-    plt.imshow(opened_img)
-    plt.show()
+    # plt.imshow(opened_img)
+    # plt.show()
     flattened_img = (opened_img.flatten()).reshape(1, -1)
     new_pred = svm_object.predict(flattened_img)
     # output the prediction
     print(f"The label for the input data was {new_pred}")
 
 
-loadNewPhoto(new_photo=new_photo)
+# loadNewPhoto(new_photo=new_photo)
+
+# load in the testing images for Caleb
+caleb_dir = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Caleb"
+caleb_files = os.listdir(caleb_dir)
+print("------ Testing images for Caleb ------")
+for img in caleb_files:
+    full_file = caleb_dir + "/" + img
+    loadNewPhoto(full_file)
+
+# load in the testing images for Cam
+cam_dir = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Cam"
+cam_files = os.listdir(cam_dir)
+print("------ Testing images for Cam ------")
+for img in cam_files:
+    full_file = cam_dir + "/" + img
+    loadNewPhoto(full_file)
+
+# load in the testing images for Hudson
+hudson_dir = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Hudson"
+hudson_files = os.listdir(hudson_dir)
+print("------ Testing images for Hudson ------")
+for img in hudson_files:
+    full_file = hudson_dir + "/" + img
+    loadNewPhoto(full_file)
+
+# load in the testing images for Lucas
+lucas_dir = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Lucas"
+lucas_files = os.listdir(lucas_dir)
+print("------ Testing images for Lucas ------")
+for img in lucas_files:
+    full_file = lucas_dir + "/" + img
+    loadNewPhoto(full_file)
+
+# load in the testing images for MATT
+matt_dir = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Matt"
+matt_files = os.listdir(matt_dir)
+print("------ Testing images for Matt ------")
+for img in matt_files:
+    full_file = matt_dir + "/" + img
+    loadNewPhoto(full_file)
+
+# load in the testing images for JACK
+jack_dir = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Jack"
+jack_files = os.listdir(jack_dir)
+print("------ Testing images for Jack ------")
+for img in jack_files:
+    full_file = jack_dir + "/" + img
+    loadNewPhoto(full_file)
