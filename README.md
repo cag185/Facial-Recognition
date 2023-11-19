@@ -18,4 +18,11 @@ Additonal Libraries:
 Additional Resources:
 * https://web.archive.org/web/20161010175545/https://tobilehman.com/blog/2013/01/20/extract-array-of-frames-from-mp4-using-python-opencv-bindings/
 * https://www.enjoyalgorithms.com/blog/image-compression-using-pca
-* 
+
+## The following files need to be ran in order
+* Convert_video_to_frames.py -- Converts all video files in the Video_to_split folder into frames
+* FeatureExtraction.py -- uses haarcascade filter on images in the frames folder to crop to just faces
+* PCA_compression.py -- compresses all the filtered images into much smaller images that are easier to train the SVM on
+* SVM_model.py -- creates the SVM based on the PCA image files in the databank folders. The file is saved as a deseralized object. Can be used in other programs at this point
+* ToggleLock.py -- Eventually will be used to unlock/alert the users of unathorized tampering. Currently takes in sample test photos and outputs the result
+  
