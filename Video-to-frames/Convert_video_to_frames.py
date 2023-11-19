@@ -4,18 +4,18 @@ import cv2
 import os
 
 # make the video bit more dynamic
-parent_folder = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Video-to-frames/video_to_split/"
+parent_folder = "Video-to-frames/video_to_split/"
 sub_files = os.listdir(parent_folder)
 # sub_files = ["Caleb_face.mp4", "Caleb_face_2.mp4", "Lucas_face.mp4", "Cam_face.mp4"]
 
 # create paths
-output_parent_directory = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Video-to-frames/frames/"
+output_parent_directory = "Video-to-frames/frames/"
 # output_arr = ["caleb_1/", "caleb_2/", "lucas/", "cam/"]
 
 file_count = 0
 for subfile in sub_files:
     # open the video file
-    full_file  = parent_folder + subfile
+    full_file = parent_folder + subfile
     vf = cv2.VideoCapture(full_file)
 
     # use the read method on the video capture object to return
@@ -23,7 +23,7 @@ for subfile in sub_files:
     # image array of rgb values
     success, image = vf.read()
 
-    # for each of the above folder paths create the folders 
+    # for each of the above folder paths create the folders
     # for output in output_arr:
     # make this more dynamic
     folder_name = output_parent_directory + subfile
@@ -37,10 +37,10 @@ for subfile in sub_files:
     while success:
         success, image = vf.read()
         print(success)
-        write_dir = test_output + "frame%d.jpg" % frame_count 
+        write_dir = test_output + "frame%d.jpg" % frame_count
         if not (image is None):
             cv2.imwrite(write_dir, image)
             frame_count += 1
-    
+
     # increase the file counter
     file_count += 1

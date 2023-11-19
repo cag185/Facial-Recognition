@@ -21,7 +21,8 @@ for person in person_folders:
     # get each picture in the persons folder
     pics = os.listdir(person_folder_path)
     pic_count = 0
-    while (pic_count < 75):
+    # grab every picture to train a better model
+    while (pic_count < len(pics)):
         # grab each pic
         file_path = person_folder_path + pics[pic_count]
         img = cv2.imread(file_path)

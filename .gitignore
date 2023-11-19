@@ -1,12 +1,12 @@
 # ignore the folder with the images of frames
-/Video-to-frames/frames/
+#/Video-to-frames/frames/
 
 # ignore the folder with the video file
-/Video-to-frames/video_to_split
+#/Video-to-frames/video_to_split
 
 # ignore the folder with all databank images for faces
-/Facial-Profile-Databank
+#/Facial-Profile-Databank
 
-/Test-Images
+#/Test-Images
 
-/Video-to-frames/haar_cascade_frames
+#/Video-to-frames/haar_cascade_frames
