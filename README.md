@@ -7,10 +7,11 @@ Requirements:
 * Raspberry Pi Camera
 
 Key Features:
-* Software that takes a video feed from the Rasp Pi Camera and parcels it up into individual frames
-* PCA to extract important features from the frames and train the model for facial detection
-* Support Vector Machine learning model for the training
-* An additional class will be used in the one vs all approach to distinguish "non-viable" faces. This can include things like pictures of faces, ID cards, or screenshots of a face on a mobile phone
+* Software that takes a video feed from the Rasp Pi Camera and parcels it up into individual frames.
+* Haarcascade library to limit photos to faces detected.
+* PCA to extract important features from the frames and train the model for facial detection.
+* Support Vector Machine learning model for the training.
+* An additional class will be used in the one vs all approach to distinguish "non-viable" faces. This can include things like pictures of faces, ID cards, or screenshots of a face on a mobile phone.
 
 Additonal Libraries:
 * SciKit
@@ -25,4 +26,9 @@ Additional Resources:
 * PCA_compression.py -- compresses all the filtered images into much smaller images that are easier to train the SVM on
 * SVM_model.py -- creates the SVM based on the PCA image files in the databank folders. The file is saved as a deseralized object. Can be used in other programs at this point
 * ToggleLock.py -- Eventually will be used to unlock/alert the users of unathorized tampering. Currently takes in sample test photos and outputs the result
-  
+
+# To setup a virtual enviornment
+* navigate to the root directory of the repo
+* in linux enviornment run the command 'python -m venv {name_of_environment}'
+* Activate the enviornment (in Linux) by running the command 'source {name_of_enviornment}/bin/activate'
+* from here you can get all the requirements by running the command 'pip install -r requirements.txt' if the requirements page exists.
