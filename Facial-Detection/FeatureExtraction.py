@@ -21,31 +21,27 @@ for person in person_folders:
     # get each picture in the persons folder
     pics = os.listdir(person_folder_path)
     pic_count = 0
-    for pic in pics:
+    while (pic_count < 75):
         # grab each pic
-        while (pic_count <= 75):
-            file_path = person_folder_path + pic
-            img = cv2.imread(file_path)
-            # convert the image to gray
-            gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            try:
-                cv2.imshow('og image', img)
-            except Exception as e:
-                print(f"exception {e}")
+        file_path = person_folder_path + pics[pic_count]
+        img = cv2.imread(file_path)
+        # convert the image to gray
+        gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-            try:
-                # create the face rect
-                faces_rect = haar_cascade.detectMultiScale(
-                    gray_img, scaleFactor=1.01, minNeighbors=15)
+        try:
+            # create the face rect
+            faces_rect = haar_cascade.detectMultiScale(
+                gray_img, scaleFactor=1.1, minNeighbors=15)
 
-                # Iterating through rectangles of detected faces
-                # get just one face
-                size_faces_array = len(faces_rect)
-                # if (size_faces_array > 0):
+            # Iterating through rectangles of detected faces
+            # get just one face
+            size_faces_array = len(faces_rect)
+            if (size_faces_array > 0):
                 (x, y, w, h) = faces_rect[0]
                 cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
-                cv2.imshow(img)
+                # cv2.imshow('show', img)
+                # cv2.waitKey(0)
 
                 # Crop the image to include only the face
                 face_roi = img[y:y+h, x:x+w]
@@ -64,6 +60,6 @@ for person in person_folders:
 
                 # save the file here with the jpg extension
                 cv2.imwrite(file_dest, face_roi)
-                pic_count += 1
-            except Exception as e:
-                print(f"error: {e}")
+        except Exception as e:
+            print(f"error: {e}")
+        pic_count += 1

@@ -15,7 +15,7 @@ from tqdm import tqdm
 # load in the image
 # parent_img_folder = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Video-to-frames/frames/Caleb_face_2/"
 # parent_img_folder = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Video-to-frames/frames/Hudson_face/"
-main_img_folder = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Video-to-frames/frames/"
+main_img_folder = "Video-to-frames/haar_cascade_frames/"
 parent_img_folder_arr = os.listdir(main_img_folder)
 
 # for each person
@@ -88,9 +88,9 @@ for person_image_folder in tqdm(parent_img_folder_arr):
         # plt.show()
 
         # save the file
-        fileDestFolder = f"C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Facial-Profile-Databank/{
+        fileDestFolder = f"Facial-Profile-Databank/{
             person_image_folder}"
-        fileDest = f"C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Facial-Profile-Databank/{
+        fileDest = f"Facial-Profile-Databank/{
             person_image_folder}/face_%d.jpg" % frame_count
 
         # check if the folder destination exists and if not, create the folder
