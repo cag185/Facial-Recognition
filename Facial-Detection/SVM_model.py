@@ -24,7 +24,7 @@ class SVM_facial_detection():
     # import the data as an array
     training_acc = 0
 
-    def __init__(self, training_acc):
+    def __init__(self):
         self.training_acc = None
 
     def train_model(self):
