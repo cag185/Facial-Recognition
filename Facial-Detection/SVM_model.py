@@ -133,7 +133,7 @@ def loadNewPhoto(new_photo):
     flattened_img = (opened_img.flatten()).reshape(1, -1)
     new_pred = svm_object.predict(flattened_img)
     # output the prediction
-    print(f"The label for the input data was {new_pred}")
+    print("The label for the input data was " + new_pred)
 
 
 # loadNewPhoto(new_photo=new_photo)
