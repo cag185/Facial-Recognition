@@ -24,8 +24,11 @@ class SVM_facial_detection():
     # import the data as an array
     training_acc = 0
 
+    def __init__(self, training_acc):
+        self.training_acc = None
+
     def train_model(self):
-        parent_folder = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Facial-Profile-Databank/"
+        parent_folder = "Facial-Profile-Databank/"
         face_list = os.listdir(parent_folder)
         # import array -- holds the flattened images
         flat_data_arr = []
@@ -92,7 +95,10 @@ class SVM_facial_detection():
         # compare the actual vs the prediction
         # this is for the whole data brought in
         training_acc = accuracy_score(y_pred, y_test)
-        lsvc.__setattr__("training_data_accuracy", training_acc)
+        print(f"The training accuracy for the data in the training mode: {
+              training_acc}")
+        # save the training accuracy
+        self.training_acc = training_acc
 
         # once we have created the model, we want to save it
         with open('SVM_model_larger.pkl', 'wb') as file:
@@ -108,14 +114,14 @@ class SVM_facial_detection():
 
 # create an instance of the object
 svm_object = SVM_facial_detection()
-print(f"training accuracy: {svm_object.__getattribute__(
-    "training_data_accuracy")}% accurate")
+
+# train the model
 # svm_object.train_model()
 
+# once the model is trained can retrieve the accuracy
+print(f"training accuracy: {svm_object.training_acc}% accurate")
+
 # function for loading in a file and converting it into side
-# new_photo = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Caleb_Test_1.jpg"
-# new_photo = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Caleb_Test_2.jpg"
-# new_photo = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Caleb_Test_3.jpg"
 
 
 def loadNewPhoto(new_photo):
