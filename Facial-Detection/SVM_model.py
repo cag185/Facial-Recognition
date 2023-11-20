@@ -119,7 +119,7 @@ svm_object = SVM_facial_detection()
 svm_object.train_model()
 
 # once the model is trained can retrieve the accuracy
-print(f"training accuracy:" + svm_object.training_acc + "accurate")
+print("training accuracy:" + svm_object.training_acc + "accurate")
 
 # function for loading in a file and converting it into side
 
