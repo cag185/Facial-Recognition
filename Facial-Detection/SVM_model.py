@@ -39,7 +39,7 @@ class SVM_facial_detection():
         person_label = 0
         # per each person that has a facial profile
         for person in face_list:
-            print(f"loading....person: {person}")
+            print("loading....person: " + person)
             # for each image in that profile
             image_dir = parent_folder + person + "/"
             img_list = os.listdir(image_dir)
@@ -54,7 +54,7 @@ class SVM_facial_detection():
                 flat_data_arr.append(curr_image_nparray.flatten())
                 # append it to a flattened array
                 label_arr.append(face_list[person_label])
-            print(f"loaded person: {person} successfully")
+            print("loaded person: " + person + " successfully")
             # at the end, add 1 to the iterator
             person_label += 1
 
@@ -95,8 +95,8 @@ class SVM_facial_detection():
         # compare the actual vs the prediction
         # this is for the whole data brought in
         training_acc = accuracy_score(y_pred, y_test)
-        print(f"The training accuracy for the data in the training mode: {
-              training_acc}")
+        print("The training accuracy for the data in the training mode: " +
+              training_acc)
         # save the training accuracy
         self.training_acc = training_acc
 
@@ -116,10 +116,10 @@ class SVM_facial_detection():
 svm_object = SVM_facial_detection()
 
 # train the model
-# svm_object.train_model()
+svm_object.train_model()
 
 # once the model is trained can retrieve the accuracy
-print(f"training accuracy: {svm_object.training_acc}% accurate")
+print(f"training accuracy:" + svm_object.training_acc + "accurate")
 
 # function for loading in a file and converting it into side
 
@@ -139,7 +139,7 @@ def loadNewPhoto(new_photo):
 # loadNewPhoto(new_photo=new_photo)
 
 # load in the testing images for Caleb
-caleb_dir = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Caleb"
+caleb_dir = "Facial-Recognition/Test-Images/Caleb"
 caleb_files = os.listdir(caleb_dir)
 print("------ Testing images for Caleb ------")
 for img in caleb_files:
@@ -147,7 +147,7 @@ for img in caleb_files:
     loadNewPhoto(full_file)
 
 # load in the testing images for Cam
-cam_dir = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Cam"
+cam_dir = "Facial-Recognition/Test-Images/Cam"
 cam_files = os.listdir(cam_dir)
 print("------ Testing images for Cam ------")
 for img in cam_files:
@@ -155,7 +155,7 @@ for img in cam_files:
     loadNewPhoto(full_file)
 
 # load in the testing images for Hudson
-hudson_dir = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Hudson"
+hudson_dir = "Facial-Recognition/Test-Images/Hudson"
 hudson_files = os.listdir(hudson_dir)
 print("------ Testing images for Hudson ------")
 for img in hudson_files:
@@ -163,7 +163,7 @@ for img in hudson_files:
     loadNewPhoto(full_file)
 
 # load in the testing images for Lucas
-lucas_dir = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Lucas"
+lucas_dir = "Facial-Recognition/Test-Images/Lucas"
 lucas_files = os.listdir(lucas_dir)
 print("------ Testing images for Lucas ------")
 for img in lucas_files:
@@ -171,7 +171,7 @@ for img in lucas_files:
     loadNewPhoto(full_file)
 
 # load in the testing images for MATT
-matt_dir = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Matt"
+matt_dir = "Facial-Recognition/Test-Images/Matt"
 matt_files = os.listdir(matt_dir)
 print("------ Testing images for Matt ------")
 for img in matt_files:
@@ -179,7 +179,7 @@ for img in matt_files:
     loadNewPhoto(full_file)
 
 # load in the testing images for JACK
-jack_dir = "C:/Users/17578/Desktop/School/Class Files/Fall 2023/ECE 1896 - Senior Design/Facial-Recognition/Test-Images/Jack"
+jack_dir = "Facial-Recognition/Test-Images/Jack"
 jack_files = os.listdir(jack_dir)
 print("------ Testing images for Jack ------")
 for img in jack_files:
