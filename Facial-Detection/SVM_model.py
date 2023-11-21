@@ -28,7 +28,7 @@ class SVM_facial_detection():
         self.training_acc = None
 
     def train_model(self):
-        parent_folder = "Facial-Profile-Databank/"
+        parent_folder = "../Facial-Profile-Databank/"
         face_list = os.listdir(parent_folder)
         # import array -- holds the flattened images
         flat_data_arr = []
