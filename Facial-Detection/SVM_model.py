@@ -89,7 +89,7 @@ class SVM_facial_detection():
         x_test_fit = scaler.fit_transform(x_test)
 
         # create the SVM classifier
-        lsvc = svm.LinearSVC(dual="true", max_iter=10000)
+        lsvc = svm.LinearSVC(dual=True, max_iter=10000)
         print("the classifier has been created")
         # fit the model to the data
         # lsvc.fit(x_train, y_train)
