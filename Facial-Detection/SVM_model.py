@@ -8,6 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import svm
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
 import pandas as pd
@@ -80,18 +81,27 @@ class SVM_facial_detection():
         x_train, x_test, y_train, y_test = train_test_split(
             x, y, test_size=0.20, random_state=77, stratify=y)
 
+        # standardize the data
+        scaler = StandardScaler()
+
+        # xtrain and x_test
+        x_train_fit = scaler.fit_transform(x_train)
+        x_test_fit = scaler.fit_transform(x_test)
+
         # create the SVM classifier
-        lsvc = svm.LinearSVC(dual="auto", max_iter=10000)
+        lsvc = svm.LinearSVC(dual="true", max_iter=10000)
         print("the classifier has been created")
         # fit the model to the data
-        lsvc.fit(x_train, y_train)
+        # lsvc.fit(x_train, y_train)
+        lsvc.fit(x_train_fit, y_train)
         print("The classifier has been trained")
 
         self.lsvc = lsvc
 
         # # test the model using the testing data
         # this is for the whole data brought in
-        y_pred = (lsvc.predict(x_test))
+        # y_pred = (lsvc.predict(x_test))
+        y_pred = (lsvc.predict(x_test_fit))
         # compare the actual vs the prediction
         # this is for the whole data brought in
         training_acc = accuracy_score(y_pred, y_test)
