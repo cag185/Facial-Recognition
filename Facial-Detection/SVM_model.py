@@ -95,8 +95,7 @@ class SVM_facial_detection():
         # compare the actual vs the prediction
         # this is for the whole data brought in
         training_acc = accuracy_score(y_pred, y_test)
-        print("The training accuracy for the data in the training mode: " +
-              training_acc)
+        print("The training accuracy for the data in the training mode: " + training_acc)
         # save the training accuracy
         self.training_acc = training_acc
 
