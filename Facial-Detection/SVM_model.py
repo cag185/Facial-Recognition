@@ -7,7 +7,7 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import svm
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
@@ -88,8 +88,15 @@ class SVM_facial_detection():
         x_train_fit = scaler.fit_transform(x_train)
         x_test_fit = scaler.fit_transform(x_test)
 
+        # parameters
+        parameters = {'kernel': ('linear', 'rbf'), 'C': [1, 10]}
+
         # create the SVM classifier
-        lsvc = svm.LinearSVC(dual=True, max_iter=10000)
+        svc = svm.LinearSVC(dual=True, max_iter=10000)
+
+        # grid search
+        lsvc = GridSearchCV(svc, parameters)
+
         print("the classifier has been created")
         # fit the model to the data
         # lsvc.fit(x_train, y_train)
