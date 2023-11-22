@@ -89,36 +89,48 @@ class SVM_facial_detection():
         x_test_fit = scaler.fit_transform(x_test)
 
         # parameters
-        parameters = {'kernel': ('linear', 'rbf'), 'C': [1, 10]}
+        param_grid = {'C': [0.001, 0.01, 0.1, 1, 10, 100],
+                      'loss': ['hinge', 'squared_hinge']}
 
         # create the SVM classifier
         svc = svm.LinearSVC(dual=True, max_iter=10000)
 
         # grid search
-        lsvc = GridSearchCV(svc, parameters)
-
+        gridsearch = GridSearchCV(svc, param_grid=param_grid, cv=5)
         print("the classifier has been created")
+
+        gridsearch.fit(x_train_fit, y_train)
+
+        # find the best parameters
+        best_params = gridsearch.best_params_
+
+        # find the best model
+        best_model = gridsearch.best_estimator_
+        test_score = best_model.score(x_test_fit, y_test)
         # fit the model to the data
         # lsvc.fit(x_train, y_train)
-        lsvc.fit(x_train_fit, y_train)
+        # lsvc.fit(x_train_fit, y_train)
         print("The classifier has been trained")
 
-        self.lsvc = lsvc
+        # we save the best model
+        self.best_model = best_model
+        # self.lsvc = lsvc
 
         # # test the model using the testing data
         # this is for the whole data brought in
         # y_pred = (lsvc.predict(x_test))
-        y_pred = (lsvc.predict(x_test_fit))
+        y_pred = (best_model.predict(x_test_fit))
         # compare the actual vs the prediction
         # this is for the whole data brought in
         training_acc = accuracy_score(y_pred, y_test)
-        print("The training accuracy for the data in the training mode: " + training_acc)
+        print(
+            "The training accuracy for the data in the training mode: " + str(training_acc))
         # save the training accuracy
         self.training_acc = training_acc
 
         # once we have created the model, we want to save it
         with open('SVM_model_larger.pkl', 'wb') as file:
-            pickle.dump(lsvc, file)
+            pickle.dump(best_model, file)
 
     # create the function for prediction/accuracy
     def predict(self, x_data):
