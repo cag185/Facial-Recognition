@@ -1,0 +1,1 @@
+ssh -i "C:\Users\17578\Desktop\School\Class Files\Fall 2023\ECE 1896 - Senior Design\Facial-Detection-VM_key.pem" cag185@172.208.16.5
