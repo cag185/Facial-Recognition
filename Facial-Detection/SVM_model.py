@@ -7,7 +7,7 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import svm
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.model_selection import train_test_split, GridSearchCV, RandomizedSearchCV
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
@@ -16,9 +16,6 @@ from tqdm import tqdm
 import pickle
 import matplotlib.pyplot as plt
 import cv2
-
-# variable to store the training accuracy
-training_acc = 0
 
 
 class SVM_facial_detection():
@@ -47,7 +44,6 @@ class SVM_facial_detection():
 
             for image in img_list:
                 full_path = image_dir + image
-
                 # open the image as an array
                 curr_image = Image.open(full_path)
                 curr_image_nparray = np.array(curr_image)
@@ -81,6 +77,17 @@ class SVM_facial_detection():
         x_train, x_test, y_train, y_test = train_test_split(
             x, y, test_size=0.20, random_state=77, stratify=y)
 
+        # get a very small sample of the data to train the classifier params on
+        subset_size = 400
+        subset_indices = np.random.choice(
+            len(x_train), size=subset_size, replace=False)
+        x_train_subset, y_train_subset = x_train[subset_indices], y_train[subset_indices]
+
+        # parameters
+        param_grid = {
+            'C': [0.01, 0.1, 1, 10, 100],
+        }
+
         # standardize the data
         scaler = StandardScaler()
 
@@ -88,30 +95,31 @@ class SVM_facial_detection():
         x_train_fit = scaler.fit_transform(x_train)
         x_test_fit = scaler.fit_transform(x_test)
 
-        # parameters
-        param_grid = {'C': [0.001, 0.01, 0.1, 1, 10, 100],
-                      'loss': ['hinge', 'squared_hinge']}
-
         # create the SVM classifier
-        svc = svm.LinearSVC(dual=True, max_iter=10000)
+        svc = svm.LinearSVC(dual=True, max_iter=1000)
+        # create the randomized searchCV object
+        random_search = RandomizedSearchCV(
+            svc, param_distributions=param_grid, n_iter=10, cv=5, n_jobs=1, random_state=42
+        )
 
-        # grid search
-        gridsearch = GridSearchCV(svc, param_grid=param_grid, cv=5)
-        print("the classifier has been created")
-
-        gridsearch.fit(x_train_fit, y_train)
-
-        # find the best parameters
-        best_params = gridsearch.best_params_
+        random_search.fit(x_train_subset, y_train_subset)
 
         # find the best model
-        best_model = gridsearch.best_estimator_
+        best_model = random_search.best_estimator_
         test_score = best_model.score(x_test_fit, y_test)
+        print("Best Params: ", random_search.best_params_)
+        print(
+            "Best Cross-validated Accuracy: {:.2f}".format(random_search.best_score_))
+        print("Test Accuracy with best params: {:.2f}".format(test_score))
+
         # fit the model to the data
         # lsvc.fit(x_train, y_train)
         # lsvc.fit(x_train_fit, y_train)
-        print("The classifier has been trained")
+        print("The classifier has been trained on the small sample dataset")
 
+        print("retraining here")
+        best_model = best_model.fit(x_train_fit, y_train)
+        print("retraining succesfull")
         # we save the best model
         self.best_model = best_model
         # self.lsvc = lsvc
