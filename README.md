@@ -20,16 +20,11 @@ Additional Resources:
 * https://web.archive.org/web/20161010175545/https://tobilehman.com/blog/2013/01/20/extract-array-of-frames-from-mp4-using-python-opencv-bindings/
 * https://www.enjoyalgorithms.com/blog/image-compression-using-pca
 * https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html
+# Copywrite:
+The CelebA database is not for commercial or resale use but rather educational only. Here is the copywrite information:
+ Large-scale CelebFaces Attributes (CelebA) Dataset
+ By Multimedia Lab, The Chinese University of Hong Kong
 
-Copywrite:
-* The CelebA database is not for commercial or resale use but rather educational only. Here is the copywrite information
-* ========================================================
-Large-scale CelebFaces Attributes (CelebA) Dataset
-========================================================
-
---------------------------------------------------------
-By Multimedia Lab, The Chinese University of Hong Kong
---------------------------------------------------------
 
 For more information about the dataset, visit the project website:
 
@@ -44,8 +39,8 @@ If you use the dataset in a publication, please cite the paper below:
  	month = December,
  	year = {2015} 
   }
-
 Please note that we do not own the copyrights to these images. Their use is RESTRICTED to non-commercial research and educational purposes.
+
 
 ## The following files need to be ran in order
 * Convert_video_to_frames.py -- Converts all video files in the Video_to_split folder into frames
