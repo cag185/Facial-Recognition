@@ -7,6 +7,7 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import svm
+from sklearn.decomposition import PCA
 from sklearn.model_selection import train_test_split, GridSearchCV, RandomizedSearchCV
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
@@ -26,7 +27,7 @@ class SVM_facial_detection():
         self.training_acc = None
 
     def train_model(self):
-        parent_folder = "../Facial-Profile-Databank/"
+        parent_folder = "Facial-Profile-Databank/"
         face_list = os.listdir(parent_folder)
         # import array -- holds the flattened images
         flat_data_arr = []
@@ -78,15 +79,23 @@ class SVM_facial_detection():
             x, y, test_size=0.20, random_state=77, stratify=y)
 
         # get a very small sample of the data to train the classifier params on
-        subset_size = 400
-        subset_indices = np.random.choice(
-            len(x_train), size=subset_size, replace=False)
-        x_train_subset, y_train_subset = x_train[subset_indices], y_train[subset_indices]
-
-        # parameters
-        param_grid = {
-            'C': [0.01, 0.1, 1, 10, 100],
-        }
+        # since this bullshit isnt workin just hardcode with c=10
+        # subset_size = int(len(y_train) / 5)
+        # subset_indices = np.random.choice(
+        #     (x_train.shape[0]), size=subset_size, replace=False)
+        # subset_indices = subset_indices.astype(int)
+        # x_train_subset = []
+        # y_train_subset = []
+        # try:
+        #     for num in subset_indices:
+        #         x_train_subset.append(x_train[num])
+        #         y_train_subset.append(y_train[num])
+        # except KeyError as e:
+        #     print("KeyError:", e)
+        # # parameters
+        # param_grid = {
+        #     'C': [0.01, 0.1, 1, 10, 100],
+        # }
 
         # standardize the data
         scaler = StandardScaler()
@@ -96,29 +105,32 @@ class SVM_facial_detection():
         x_test_fit = scaler.fit_transform(x_test)
 
         # create the SVM classifier
-        svc = svm.LinearSVC(dual=True, max_iter=1000)
-        # create the randomized searchCV object
-        random_search = RandomizedSearchCV(
-            svc, param_distributions=param_grid, n_iter=10, cv=5, n_jobs=1, random_state=42
-        )
+        print("Creating the svm.LinearSVC")
+        svc = svm.LinearSVC(dual=True, max_iter=1000, C=10, random_state=42)
+        print("Done creating the svm.LinearSVC")
 
-        random_search.fit(x_train_subset, y_train_subset)
+        # create the randomized searchCV object
+        # random_search = RandomizedSearchCV(
+        #     svc, param_distributions=param_grid, n_iter=10, cv=5, n_jobs=1, random_state=42
+        # )
+
+        # random_search.fit(x_train_subset, y_train_subset)
 
         # find the best model
-        best_model = random_search.best_estimator_
-        test_score = best_model.score(x_test_fit, y_test)
-        print("Best Params: ", random_search.best_params_)
-        print(
-            "Best Cross-validated Accuracy: {:.2f}".format(random_search.best_score_))
-        print("Test Accuracy with best params: {:.2f}".format(test_score))
+        # best_model = random_search.best_estimator_
+        # test_score = svc.score(x_test_fit, y_test)
+        # print("Best Params: ", random_search.best_params_)
+        # print(
+        #     "Best Cross-validated Accuracy: {:.2f}".format(random_search.best_score_))
+        # print("Test Accuracy with best params: {:.2f}".format(test_score))
 
         # fit the model to the data
         # lsvc.fit(x_train, y_train)
         # lsvc.fit(x_train_fit, y_train)
-        print("The classifier has been trained on the small sample dataset")
+        # print("The classifier has been trained on the small sample dataset")
 
         print("retraining here")
-        best_model = best_model.fit(x_train_fit, y_train)
+        best_model = svc.fit(x_train_fit, y_train)
         print("retraining succesfull")
         # we save the best model
         self.best_model = best_model
@@ -143,7 +155,7 @@ class SVM_facial_detection():
     # create the function for prediction/accuracy
     def predict(self, x_data):
         # load the model from storage
-        with open('SVM_model_larger.pkl', 'rb') as file2:
+        with open('SVM_model.pkl', 'rb') as file2:
             lsvc_new = pickle.load(file2)
             return lsvc_new.predict(x_data)
 
@@ -152,21 +164,53 @@ class SVM_facial_detection():
 svm_object = SVM_facial_detection()
 
 # train the model
-svm_object.train_model()
+# svm_object.train_model()
 
 # once the model is trained can retrieve the accuracy
-print("training accuracy:" + svm_object.training_acc + "accurate")
+# print("training accuracy:" + svm_object.training_acc + "accurate")
 
 # function for loading in a file and converting it into side
 
 
 def loadNewPhoto(new_photo):
+    # change the photo to be cv2 in split colors
+    img = cv2.cvtColor(cv2.imread(new_photo), cv2.COLOR_BGR2RGB)
+    full_image = cv2.resize(img, (500, 500))
+    # split rgb
+    blue, green, red = cv2.split(full_image)
+    norm_blue = blue/255
+    norm_green = green/255
+    norm_red = red/255
+
+    pca_b = PCA(n_components=.99)
+    pca_b.fit(norm_blue)
+    trans_pca_b = pca_b.transform(norm_blue)
+
+    pca_g = PCA(n_components=.99)
+    pca_g.fit(norm_green)
+    trans_pca_g = pca_g.transform(norm_green)
+
+    pca_r = PCA(n_components=.99)
+    pca_r.fit(norm_red)
+    trans_pca_r = pca_r.transform(norm_red)
+
+    # recombine the images
+    b_arr = pca_b.inverse_transform(trans_pca_b)
+    g_arr = pca_g.inverse_transform(trans_pca_g)
+    r_arr = pca_r.inverse_transform(trans_pca_r)
+
+    # merge the photos back to one
+    img_reduced = (cv2.merge((r_arr, g_arr, b_arr)))
+
     # change the photo to be an nparray
-    opened_img = np.asarray(Image.open(new_photo).resize((500, 500)))
+    # opened_img = np.asarray(Image.open(new_photo).resize((500, 500)))
     # reshape
     # plt.imshow(opened_img)
     # plt.show()
-    flattened_img = (opened_img.flatten()).reshape(1, -1)
+    flattened_img = (img_reduced.flatten()).reshape(1, -1)
+
+    # need to also compress the image using PCA
+
     new_pred = svm_object.predict(flattened_img)
     # output the prediction
     print("The label for the input data was " + new_pred)
@@ -175,7 +219,8 @@ def loadNewPhoto(new_photo):
 # loadNewPhoto(new_photo=new_photo)
 
 # load in the testing images for Caleb
-caleb_dir = "Facial-Recognition/Test-Images/Caleb"
+# caleb_dir = "Facial-Recognition/Test-Images/Caleb"
+caleb_dir = "Test-Images/Caleb"
 caleb_files = os.listdir(caleb_dir)
 print("------ Testing images for Caleb ------")
 for img in caleb_files:
@@ -183,7 +228,8 @@ for img in caleb_files:
     loadNewPhoto(full_file)
 
 # load in the testing images for Cam
-cam_dir = "Facial-Recognition/Test-Images/Cam"
+# cam_dir = "Facial-Recognition/Test-Images/Cam"
+cam_dir = "Test-Images/Cam"
 cam_files = os.listdir(cam_dir)
 print("------ Testing images for Cam ------")
 for img in cam_files:
@@ -191,7 +237,8 @@ for img in cam_files:
     loadNewPhoto(full_file)
 
 # load in the testing images for Hudson
-hudson_dir = "Facial-Recognition/Test-Images/Hudson"
+# hudson_dir = "Facial-Recognition/Test-Images/Hudson"
+hudson_dir = "Test-Images/Hudson"
 hudson_files = os.listdir(hudson_dir)
 print("------ Testing images for Hudson ------")
 for img in hudson_files:
@@ -199,7 +246,8 @@ for img in hudson_files:
     loadNewPhoto(full_file)
 
 # load in the testing images for Lucas
-lucas_dir = "Facial-Recognition/Test-Images/Lucas"
+# lucas_dir = "Facial-Recognition/Test-Images/Lucas"
+lucas_dir = "Test-Images/Lucas"
 lucas_files = os.listdir(lucas_dir)
 print("------ Testing images for Lucas ------")
 for img in lucas_files:
@@ -207,7 +255,8 @@ for img in lucas_files:
     loadNewPhoto(full_file)
 
 # load in the testing images for MATT
-matt_dir = "Facial-Recognition/Test-Images/Matt"
+# matt_dir = "Facial-Recognition/Test-Images/Matt"
+matt_dir = "Test-Images/Matt"
 matt_files = os.listdir(matt_dir)
 print("------ Testing images for Matt ------")
 for img in matt_files:
@@ -215,7 +264,8 @@ for img in matt_files:
     loadNewPhoto(full_file)
 
 # load in the testing images for JACK
-jack_dir = "Facial-Recognition/Test-Images/Jack"
+# jack_dir = "Facial-Recognition/Test-Images/Jack"
+jack_dir = "Test-Images/Jack"
 jack_files = os.listdir(jack_dir)
 print("------ Testing images for Jack ------")
 for img in jack_files:
