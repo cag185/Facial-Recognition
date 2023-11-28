@@ -20,7 +20,9 @@ class SVC_facial_detection():
         self.training_acc = None
 
     def train_model(self):
-        parent_folder = "Facial-Profile-Databank/"
+        # try loading in the non compressed images
+        # parent_folder = "Facial-Profile-Databank/"
+        parent_folder = "Video-to-frames/haar_cascade_frames/"
         face_list = os.listdir(parent_folder)
         flat_data_arr = []
         label_arr = []
@@ -28,30 +30,45 @@ class SVC_facial_detection():
         # iterating variable
         person_label = 0
 
-        # loop through each person that has a profile database and add them
+        # loop through each person and give them an authorized label
         for person in face_list:
-            # skip the not a person class
-            if person == "unauthorized_users":
-                break
+            # # skip the not a person class
+            # if person == "unauthorized_users":
+            #     break
 
             print("loading...person: " + person)
             image_dir = parent_folder + person + "/"
             img_list = os.listdir(image_dir)
 
             # for each image that belongs to that person
+            img_count = 0
             for image in img_list:
+                if (img_count >= 100):
+                    break
                 full_path = image_dir + image
                 curr_image = Image.open(full_path)
+                curr_image = curr_image.convert('L')
+                # resize the images
+
                 curr_image_nparray = np.array(curr_image)
+                curr_image_nparray = cv2.resize(curr_image_nparray, (100, 100))
+
                 # flatten the image
                 flat_data_arr.append(curr_image_nparray.flatten())
                 # append to the flattened label array
-                label_arr.append(face_list[person_label])
+                # label_arr.append(face_list[person_label])
+                if (person == "unauthorized_users"):
+                    label_arr.append("unauthorized_user")
+                else:
+                    label_arr.append("authorized_user")
+                img_count += 1
+
             print("loaded person: " + person + " successfully")
             person_label += 1
 
         # now that we are done collecting images of people
         label_data = np.array(label_arr)
+        # flat_data = np.array(flat_data_arr)
         flat_data = np.array(flat_data_arr)
         print("done preprocessing")
 
@@ -121,35 +138,36 @@ class SVC_facial_detection():
 
 def loadNewPhoto(new_photo):
     # change the photo to be cv2 in split colors
-    img = cv2.cvtColor(cv2.imread(new_photo), cv2.COLOR_BGR2RGB)
-    full_image = cv2.resize(img, (500, 500))
+    # img = cv2.cvtColor(cv2.imread(new_photo), cv2.COLOR_BGR2RGB)
+    img = np.array(Image.open(new_photo).convert('L'))
+    full_image = cv2.resize(img, (100, 100))
     # split rgb
-    blue, green, red = cv2.split(full_image)
-    norm_blue = blue/255
-    norm_green = green/255
-    norm_red = red/255
+    # blue, green, red = cv2.split(full_image)
+    # norm_blue = blue/255
+    # norm_green = green/255
+    # norm_red = red/255
 
-    pca_b = PCA(n_components=.99)
-    pca_b.fit(norm_blue)
-    trans_pca_b = pca_b.transform(norm_blue)
+    # pca_b = PCA(n_components=.99)
+    # pca_b.fit(norm_blue)
+    # trans_pca_b = pca_b.transform(norm_blue)
 
-    pca_g = PCA(n_components=.99)
-    pca_g.fit(norm_green)
-    trans_pca_g = pca_g.transform(norm_green)
+    # pca_g = PCA(n_components=.99)
+    # pca_g.fit(norm_green)
+    # trans_pca_g = pca_g.transform(norm_green)
 
-    pca_r = PCA(n_components=.99)
-    pca_r.fit(norm_red)
-    trans_pca_r = pca_r.transform(norm_red)
+    # pca_r = PCA(n_components=.99)
+    # pca_r.fit(norm_red)
+    # trans_pca_r = pca_r.transform(norm_red)
 
     # recombine the images
-    b_arr = pca_b.inverse_transform(trans_pca_b)
-    g_arr = pca_g.inverse_transform(trans_pca_g)
-    r_arr = pca_r.inverse_transform(trans_pca_r)
+    # b_arr = pca_b.inverse_transform(trans_pca_b)
+    # g_arr = pca_g.inverse_transform(trans_pca_g)
+    # r_arr = pca_r.inverse_transform(trans_pca_r)
 
     # merge the photos back to one
-    img_reduced = (cv2.merge((r_arr, g_arr, b_arr)))
-    flattened_img = (img_reduced.flatten()).reshape(1, -1)
-
+    # img_reduced = (cv2.merge((r_arr, g_arr, b_arr)))
+    # flattened_img = (img_reduced.flatten()).reshape(1, -1)
+    flattened_img = full_image.flatten().reshape(1, -1)
     # need to also compress the image using PCA
     new_pred = svc_object.predict(flattened_img)
     # output the prediction
@@ -214,4 +232,12 @@ jack_files = os.listdir(jack_dir)
 print("------ Testing images for Jack ------")
 for img in jack_files:
     full_file = jack_dir + "/" + img
+    loadNewPhoto(full_file)
+
+# load in the testing images for Unathorized testing people
+unauthor_dir = "Test-Images/Unauthorized_users"
+unauthor_files = os.listdir(unauthor_dir)
+print("------ Testing images for Unauthorized Users ------")
+for img in unauthor_files:
+    full_file = unauthor_dir + "/" + img
     loadNewPhoto(full_file)
