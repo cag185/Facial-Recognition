@@ -17,7 +17,7 @@ import time
 
 class SVC_facial_detection():
     def __init__(self):
-        self.training_acc = None
+        self.testing_accuracy = None
 
     def train_model(self):
         # try loading in the non compressed images
@@ -43,7 +43,7 @@ class SVC_facial_detection():
             # for each image that belongs to that person
             img_count = 0
             for image in img_list:
-                if (img_count >= 100):
+                if (img_count >= 300):
                     break
                 full_path = image_dir + image
                 curr_image = Image.open(full_path)
@@ -72,58 +72,29 @@ class SVC_facial_detection():
         flat_data = np.array(flat_data_arr)
         print("done preprocessing")
 
-        # create a pandas dataframe of the data
-        # df = pd.DataFrame(flat_data)
-        # df['Label'] = label_data
-        # print("Done converting to data frame")
         # separate the input features and labels
         x = flat_data
         y = label_data
 
-        # standardize the data
-        # x = x / 255
         # split the data into training and testing data
         x_train, x_test, y_train, y_test = train_test_split(
-            x, y, test_size=0.2, random_state=42)
+            x, y, test_size=0.25, random_state=42)
 
         # create the classifier
-        # svc = svm.LinearSVC(dual="auto", max_iter=1000, random_state=42)
         svc = svm.SVC(kernel="linear", C=2.0)
         print("Done creating the SVC")
-
-        # train the SVC with parameter tuning
-        # param_dist = {'C': np.logspace(-3, 3, 7), }  # range for C
-
-        # create the randomSearchCV object
-        # print the machine is tuning and record how long
-        # print("Tuning hyper-params with RandomSearchCV...")
-        # start_time = time.time()
-        # random_search = RandomizedSearchCV(
-        #     svc, param_distributions=param_dist, n_iter=10, cv=5, n_jobs=-1, random_state=42
-        # )
-        # end_time = time.time()
-        # elapsed_time = end_time - start_time
-        # print("Done tuning hyper-params in " + str(elapsed_time) + " seconds")
 
         # fit the trained model to the data
         print("Training Model....")
         start_time = time.time()
-        # random_search.fit(x_train, y_train)
         svc.fit(x_train, y_train)
         end_time = time.time()
         elapsed_time = end_time - start_time
         print("Done Training Model in " + str(elapsed_time) + " seconds")
-
-        # best_estimator = random_search.best_estimator_
-        # best_params = random_search.best_params_
-        # print("Best params: " + str(best_params))
-
-        # save the best estimator to be used wherever
-        # self.best_model = best_estimator
         y_pred = (svc.predict(x_test))
 
-        self.training_accuracy = accuracy_score(y_pred, y_test)
-        print("Training accuracy score: " + str(self.training_accuracy))
+        self.testing_accuracy = accuracy_score(y_pred, y_test)
+        print("Testing accuracy score: " + str(self.testing_accuracy))
         with open('SVC_model_larger.pkl', 'wb') as file:
             pickle.dump(svc, file)
 

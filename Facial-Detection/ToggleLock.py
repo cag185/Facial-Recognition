@@ -1,27 +1,50 @@
-# This program will feed in test data (new persons face) and run that through the existing SVM model to detect a verified face
-# WARNING--- for an image to be used in the SVM it must be loaded, converted into 500,500 image, and flattened
+# This program will feed in live test data (new persons face) and run that through the existing SVM model to detect a verified face
+# WARNING--- for an image to be used in the SVM it must be loaded, converted into 100,100 image, converted to grayscale and flattened
 # reshape image to (1,-1) as one sample is used
-
-
-# TODO: need to not allow the lock to toggle in the case where we are not seeing an authorized user as the classification
-
-import pickle
-import os
+import cv2
 import numpy as np
+import os
+import pickle
 from PIL import Image
 
-# step 1 - load in the test image
-unprocessed_img = "Test-Images/Jack/Jack_Test_2.jpg"
-unprocessed_img = "Test-Images/Unauthorized_users/face_19.jpg"
-opened_img = np.asarray(Image.open(
-    unprocessed_img).convert('L').resize((100, 100)))
-new_image = (opened_img.flatten()).reshape(1, -1)
-
-# step 2 - load in the SVM model
+# load in the SVC model
 with open('SVC_model_larger.pkl', 'rb') as file:
     lsvc = pickle.load(file)
 
-    # now want to pass in the data that we have processed
-    prediction = lsvc.predict(new_image)
+# create a function to load in a new image
+photo_filename = "testphoto.png"
 
+
+def newPhotoFromCam():
+    # take the photo
+    cam_index = 0
+    print("waiting to take picture, press space to take")
+    key = cv2.waitKey(0)
+    capture = cv2.VideoCapture(cam_index)
+    if not capture.isOpened():
+        print("Error: could not open webcam")
+        return
+    ret, frame = capture.read()
+    if not ret:
+        print("Error: failed to capture a frame.")
+        capture.release()
+        return
+
+    cv2.imwrite(photo_filename, frame)
+    cv2.imshow('image', frame)
+    # release webcam
+    capture.release()
+    cv2.destroyAllWindows()
+
+
+def getLabel():
+    opened_img = np.asarray(Image.open(
+        photo_filename).convert('L').resize((100, 100)))
+    new_image = (opened_img.flatten()).reshape(1, -1)
+    prediction = lsvc.predict(new_image)
     print(f"Prediction.....{prediction}")
+
+
+# run the functions to test
+newPhotoFromCam()
+getLabel()
