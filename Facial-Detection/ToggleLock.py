@@ -11,12 +11,14 @@ import numpy as np
 from PIL import Image
 
 # step 1 - load in the test image
-unprocessed_img = "../Test-Images/Jack/Jack_Test_2.jpg"
-opened_img = np.asarray(Image.open(unprocessed_img).resize((500, 500)))
+unprocessed_img = "Test-Images/Jack/Jack_Test_2.jpg"
+unprocessed_img = "Test-Images/Unauthorized_users/face_19.jpg"
+opened_img = np.asarray(Image.open(
+    unprocessed_img).convert('L').resize((100, 100)))
 new_image = (opened_img.flatten()).reshape(1, -1)
 
 # step 2 - load in the SVM model
-with open('../SVM_model.pkl', 'rb') as file:
+with open('SVC_model_larger.pkl', 'rb') as file:
     lsvc = pickle.load(file)
 
     # now want to pass in the data that we have processed
