@@ -7,14 +7,14 @@ from PIL import Image
 
 # import data to work with
 unauthorized_face_list = []
-unauthorized = "unauthorized_user"
-authorized = "authorized_user"
+unauthorized = 0
+authorized = 1
 unauthorized_comparator = []
 unauthorized_dir = "Video-to-frames/haar_cascade_frames/unauthorized_users/"
 authorized_dir = "Video-to-frames/haar_cascade_frames/"
 
 # load in the svc
-with open('SVC_model_larger.pkl', 'rb') as file:
+with open('OCSVM_model.pkl', 'rb') as file:
     lsvc = pickle.load(file)
 
 foo_count = 0

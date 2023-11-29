@@ -30,7 +30,7 @@ led_interval = .1
 print("Indicated the 12th GPIO pin is working.....")
 
 # load in the SVC model
-with open('SVC_model_larger.pkl', 'rb') as file:
+with open('OCSVM_model.pkl', 'rb') as file:
     lsvc = pickle.load(file)
 
 # create a function to load in a new image
