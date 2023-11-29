@@ -32,10 +32,6 @@ class SVC_facial_detection():
 
         # loop through each person and give them an authorized label
         for person in face_list:
-            # # skip the not a person class
-            # if person == "unauthorized_users":
-            #     break
-
             print("loading...person: " + person)
             image_dir = parent_folder + person + "/"
             img_list = os.listdir(image_dir)
