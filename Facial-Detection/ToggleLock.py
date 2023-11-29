@@ -69,7 +69,7 @@ def getLabel():
     haar_cascade = cv2.CascadeClassifier(
         "XML/haarcascade_frontalface_default.xml")
     faces_rect = haar_cascade.detectMultiScale(
-        opened_img, scaleFactor=1.1, minNeighbors=15)
+        opened_img, scaleFactor=1.05, minNeighbors=15)
     # get just one face
     size_faces_array = len(faces_rect)
     print(f"size of face array: {size_faces_array}")
