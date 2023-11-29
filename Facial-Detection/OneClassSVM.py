@@ -76,7 +76,7 @@ class SVC_facial_detection():
             x, y, test_size=0.25, random_state=42)
 
         # create the classifier
-        OCSVM = OneClassSVM(kernel="linear", nu=0.1)
+        OCSVM = OneClassSVM(kernel="linear", nu=0.05)
         print("Done creating the OCSVM")
 
         # fit the trained model to the data

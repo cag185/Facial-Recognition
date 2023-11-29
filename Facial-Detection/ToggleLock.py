@@ -9,9 +9,9 @@ from PIL import Image
 # import RPi.GPIO as GPIO
 import time
 # value for an authorized user
-authorized = "authorized_user"
+authorized = 1
 # value for unauthorized user
-unauthorized = "unauthorized_user"
+unauthorized = -1
 
 # add in some code to control the GPIO pin
 led_pin = 12
@@ -82,8 +82,8 @@ def getLabel():
 
         new_image = (cv2.resize(face_roi, (100, 100)).flatten()).reshape(1, -1)
         prediction = lsvc.predict(new_image)
-        print(f"Prediction.....{prediction}")
-        if (prediction == authorized):
+        print(f"Prediction.....{prediction[0]}")
+        if (prediction[0] == authorized):
             # blink the GPIO pin
             # GPIO.output(led_pin, GPIO.HIGH)
             # time.sleep(led_interval)
