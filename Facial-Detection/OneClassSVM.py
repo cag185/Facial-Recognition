@@ -148,8 +148,8 @@ svc_object = SVC_facial_detection()
 svc_object.train_model()
 
 # load in the testing images for Caleb
-# caleb_dir = "Facial-Recognition/Test-Images/Caleb"
-caleb_dir = "Test-Images/Caleb"
+caleb_dir = "../Facial-Recognition/Test-Images/Caleb"
+# caleb_dir = "Test-Images/Caleb"
 caleb_files = os.listdir(caleb_dir)
 print("------ Testing images for Caleb ------")
 for img in caleb_files:
