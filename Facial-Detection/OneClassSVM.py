@@ -21,7 +21,8 @@ class SVC_facial_detection():
     def train_model(self):
         # try loading in the non compressed images
         # parent_folder = "Facial-Profile-Databank/"
-        parent_folder = "Video-to-frames/haar_cascade_frames/"
+        # parent_folder = "Video-to-frames/haar_cascade_frames/"
+        parent_folder = "../Video-to-frames/haar_cascade_frames/"
         face_list = os.listdir(parent_folder)
         flat_data_arr = []
         label_arr = []
@@ -97,7 +98,7 @@ class SVC_facial_detection():
 
     def predict(self, x_data):
         # load the model from storage
-        with open('OCSVM_model.pkl', 'rb') as file2:
+        with open('../OCSVM_model.pkl', 'rb') as file2:
             lsvc_new = pickle.load(file2)
             return str(lsvc_new.predict(x_data))
 
@@ -156,8 +157,8 @@ for img in caleb_files:
     loadNewPhoto(full_file)
 
 # load in the testing images for Cam
-# cam_dir = "Facial-Recognition/Test-Images/Cam"
-cam_dir = "Test-Images/Cam"
+cam_dir = "../Facial-Recognition/Test-Images/Cam"
+# cam_dir = "Test-Images/Cam"
 cam_files = os.listdir(cam_dir)
 print("------ Testing images for Cam ------")
 for img in cam_files:
@@ -165,8 +166,8 @@ for img in cam_files:
     loadNewPhoto(full_file)
 
 # load in the testing images for Hudson
-# hudson_dir = "Facial-Recognition/Test-Images/Hudson"
-hudson_dir = "Test-Images/Hudson"
+hudson_dir = "../Facial-Recognition/Test-Images/Hudson"
+# hudson_dir = "Test-Images/Hudson"
 hudson_files = os.listdir(hudson_dir)
 print("------ Testing images for Hudson ------")
 for img in hudson_files:
@@ -174,8 +175,8 @@ for img in hudson_files:
     loadNewPhoto(full_file)
 
 # load in the testing images for Lucas
-# lucas_dir = "Facial-Recognition/Test-Images/Lucas"
-lucas_dir = "Test-Images/Lucas"
+lucas_dir = "../Facial-Recognition/Test-Images/Lucas"
+# lucas_dir = "Test-Images/Lucas"
 lucas_files = os.listdir(lucas_dir)
 print("------ Testing images for Lucas ------")
 for img in lucas_files:
@@ -183,8 +184,8 @@ for img in lucas_files:
     loadNewPhoto(full_file)
 
 # load in the testing images for MATT
-# matt_dir = "Facial-Recognition/Test-Images/Matt"
-matt_dir = "Test-Images/Matt"
+matt_dir = "../Facial-Recognition/Test-Images/Matt"
+# matt_dir = "Test-Images/Matt"
 matt_files = os.listdir(matt_dir)
 print("------ Testing images for Matt ------")
 for img in matt_files:
@@ -192,8 +193,8 @@ for img in matt_files:
     loadNewPhoto(full_file)
 
 # load in the testing images for JACK
-# jack_dir = "Facial-Recognition/Test-Images/Jack"
-jack_dir = "Test-Images/Jack"
+jack_dir = "../Facial-Recognition/Test-Images/Jack"
+# jack_dir = "Test-Images/Jack"
 jack_files = os.listdir(jack_dir)
 print("------ Testing images for Jack ------")
 for img in jack_files:
@@ -201,7 +202,7 @@ for img in jack_files:
     loadNewPhoto(full_file)
 
 # load in the testing images for Unathorized testing people
-unauthor_dir = "Test-Images/Unauthorized_users"
+unauthor_dir = "../Test-Images/Unauthorized_users"
 unauthor_files = os.listdir(unauthor_dir)
 print("------ Testing images for Unauthorized Users ------")
 for img in unauthor_files:
