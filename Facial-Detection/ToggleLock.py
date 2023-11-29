@@ -6,6 +6,28 @@ import numpy as np
 import os
 import pickle
 from PIL import Image
+import RPi.GPIO as GPIO
+import time
+# value for an authorized user
+authorized = "authorized_user"
+# value for unauthorized user
+unauthorized = "unauthorized_user"
+
+# add in some code to control the GPIO pin
+led_pin = 12
+led_interval = .1
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(led_pin, GPIO.OUT, initial=GPIO.LOW)
+
+GPIO.output(led_pin, GPIO.HIGH)
+time.sleep(led_interval)
+GPIO.output(led_pin, GPIO.LOW)
+time.sleep(led_interval)
+GPIO.output(led_pin, GPIO.HIGH)
+time.sleep(led_interval)
+GPIO.output(led_pin, GPIO.LOW)
+print("Indicated the 12th GPIO pin is working.....")
 
 # load in the SVC model
 with open('SVC_model_larger.pkl', 'rb') as file:
@@ -61,6 +83,18 @@ def getLabel():
         new_image = (cv2.resize(face_roi, (100, 100)).flatten()).reshape(1, -1)
         prediction = lsvc.predict(new_image)
         print(f"Prediction.....{prediction}")
+        if (prediction == authorized):
+            # blink the GPIO pin
+            GPIO.output(led_pin, GPIO.HIGH)
+            time.sleep(led_interval)
+            GPIO.output(led_pin, GPIO.LOW)
+            time.sleep(led_interval)
+            GPIO.output(led_pin, GPIO.HIGH)
+            time.sleep(led_interval)
+            GPIO.output(led_pin, GPIO.LOW)
+            print("The light is blinking....successful unlock")
+        else:
+            print("the light is not on....door locked")
     else:
         print("Something went wrong, no face detected")
 
