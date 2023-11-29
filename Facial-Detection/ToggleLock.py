@@ -39,10 +39,30 @@ def newPhotoFromCam():
 
 def getLabel():
     opened_img = np.asarray(Image.open(
-        photo_filename).convert('L').resize((100, 100)))
-    new_image = (opened_img.flatten()).reshape(1, -1)
-    prediction = lsvc.predict(new_image)
-    print(f"Prediction.....{prediction}")
+        photo_filename).convert('L'))
+    cv2.imshow('img', opened_img)
+    cv2.waitKey(0)
+
+    # try and use the haarcascade filter on the image to better work with the model
+    haar_cascade = cv2.CascadeClassifier(
+        "XML/haarcascade_frontalface_default.xml")
+    faces_rect = haar_cascade.detectMultiScale(
+        opened_img, scaleFactor=1.1, minNeighbors=15)
+    # get just one face
+    size_faces_array = len(faces_rect)
+    print(f"size of face array: {size_faces_array}")
+    if (size_faces_array > 0):
+        (x, y, w, h) = faces_rect[0]
+        cv2.rectangle(opened_img, (x, y), (x+w, y+h), (0, 255, 0), 2)
+        # Crop the image to include only the face
+        face_roi = opened_img[y:y+h, x:x+w]
+        print("Face detected....")
+
+        new_image = (cv2.resize(face_roi, (100, 100)).flatten()).reshape(1, -1)
+        prediction = lsvc.predict(new_image)
+        print(f"Prediction.....{prediction}")
+    else:
+        print("Something went wrong, no face detected")
 
 
 # run the functions to test
