@@ -8,7 +8,7 @@ import pickle
 from PIL import Image
 # import RPi.GPIO as GPIO
 import time
-from picamera import PiCamera
+import picamera
 # value for an authorized user
 authorized = 1
 # value for unauthorized user
@@ -32,7 +32,7 @@ print("Indicated the 12th GPIO pin is working.....")
 
 
 # attempt to take a picture
-camera = PiCamera()
+camera = picamera.PiCamera()
 camera.start_preview()
 time.sleep(5)
 camera.capture('home/pi/Desktop/image.jpg')
