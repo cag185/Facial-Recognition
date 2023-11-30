@@ -7,7 +7,7 @@ import os
 import pickle
 from PIL import Image
 from picamera2 import Picamera2
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import time
 # value for an authorized user
 authorized = 1
@@ -31,9 +31,16 @@ GPIO.output(led_pin, GPIO.LOW)
 print("Indicated the 12th GPIO pin is working.....")
 # start the camera
 piCam = Picamera2()
+piCam.preview_configuration.main.size = (1280, 720)
+piCam.framerate = 500
+piCam.preview_configuration.main.format = "RGB888"
+piCam.preview_configuration.align()
+piCam.configure("preview")
+piCam.start()
 time.sleep(2)
 frame = piCam.capture_array()
 cv2.imwrite("testImageCaptured.png", frame)
+piCam.close()
 
 # load in the SVC model
 with open('OCSVM_model.pkl', 'rb') as file:
