@@ -8,7 +8,6 @@ import pickle
 from PIL import Image
 # import RPi.GPIO as GPIO
 import time
-import picamera
 # value for an authorized user
 authorized = 1
 # value for unauthorized user
@@ -30,21 +29,13 @@ led_interval = .1
 # GPIO.output(led_pin, GPIO.LOW)
 print("Indicated the 12th GPIO pin is working.....")
 
-
-# attempt to take a picture
-camera = picamera.PiCamera()
-camera.start_preview()
-time.sleep(5)
-camera.capture('home/pi/Desktop/image.jpg')
-camera.stop_preview()
-
-
 # load in the SVC model
 with open('OCSVM_model.pkl', 'rb') as file:
     lsvc = pickle.load(file)
 
 # create a function to load in a new image
-photo_filename = "testphoto.png"
+photo_filename_verified = "testphoto_verified.png"
+photo_filename_unverified = "testphoto_unverified.png"
 
 
 def newPhotoFromCam():
@@ -62,7 +53,7 @@ def newPhotoFromCam():
         capture.release()
         return
 
-    cv2.imwrite(photo_filename, frame)
+    cv2.imwrite(photo_filename_unverified, frame)
     cv2.imshow('image', frame)
     # release webcam
     capture.release()
