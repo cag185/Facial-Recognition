@@ -66,7 +66,7 @@ def newPhotoFromCam():
         capture.release()
         return
 
-    cv2.imwrite(photo_filename_unverified, frame)
+    cv2.imwrite(photo_filename_verified, frame)
     cv2.imshow('image', frame)
     # release webcam
     capture.release()
@@ -75,7 +75,7 @@ def newPhotoFromCam():
 
 def getLabel():
     opened_img = np.asarray(Image.open(
-        photo_filename_unverified).convert('L'))
+        photo_filename_verified).convert('L'))
     cv2.imshow('img', opened_img)
     cv2.waitKey(0)
 
