@@ -1,4 +1,5 @@
 import cv2
+from PIL import Image
 from picamera2 import Picamera2, Preview
 import time
 import os
@@ -15,6 +16,9 @@ cam.start()
 print("prepate to take a pic.....")
 time.sleep(1)
 frame = cam.capture_array()
-gray = frame.convert('L')
+pil_image = Image.fromarray(frame)
+gray = pil_image.convert('L')
 new_test_img = "new_testing_img.png"
 cv2.imwrite(new_test_img, gray)
+
+cam.stop()
