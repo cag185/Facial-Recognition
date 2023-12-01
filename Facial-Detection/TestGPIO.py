@@ -12,7 +12,7 @@ authorized = 1
 
 # add in some code to control the GPIO pin
 led_pin = 12
-led_interval = .1
+led_interval = 2
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(led_pin, GPIO.OUT, initial=GPIO.LOW)
