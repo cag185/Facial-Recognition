@@ -6,6 +6,10 @@ from PIL import Image
 import RPi.GPIO as GPIO
 import time
 
+# define constants
+unauthorized = 0
+authorized = 1
+
 # add in some code to control the GPIO pin
 led_pin = 12
 led_interval = .1
