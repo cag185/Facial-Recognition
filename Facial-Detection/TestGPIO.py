@@ -58,7 +58,7 @@ def getLabel(photo):
         opened_img, scaleFactor=1.05, minNeighbors=15)
     # get just one face
     size_faces_array = len(faces_rect)
-    print(f"size of face array: {size_faces_array}")
+    # print(f"size of face :array {size_faces_array}")
     if (size_faces_array > 0):
         (x, y, w, h) = faces_rect[0]
         cv2.rectangle(opened_img, (x, y), (x+w, y+h), (0, 255, 0), 2)
