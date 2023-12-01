@@ -10,8 +10,8 @@ import time
 unauthorized = 0
 authorized = 1
 
-# add in some code to control the GPIO pin
-led_pin = 12
+# add in some code to control the GPIO pin (pin 18)
+led_pin = 18
 led_interval = 2
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
@@ -70,11 +70,12 @@ def getLabel(photo):
             GPIO.output(led_pin, GPIO.LOW)
             time.sleep(led_interval)
             GPIO.output(led_pin, GPIO.HIGH)
-            time.sleep(led_interval)
-            GPIO.output(led_pin, GPIO.LOW)
+            time.sleep(5)
             print("The light is blinking....successful unlock")
         else:
             print("the light is not on....door locked")
+            GPIO.output(led_pin, GPIO.LOW)
+
     else:
         print("Something went wrong, no face detected")
 
