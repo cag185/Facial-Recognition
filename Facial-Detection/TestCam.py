@@ -19,6 +19,5 @@ frame = cam.capture_array()
 pil_image = Image.fromarray(frame)
 gray = pil_image.convert('L')
 new_test_img = "new_testing_img.png"
-cv2.imwrite(new_test_img, gray)
-
+gray.save(new_test_img)
 cam.stop()
