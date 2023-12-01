@@ -31,7 +31,7 @@ with open('OCSVM_model.pkl', 'rb') as file:
 cam = Picamera2()
 cam.preview_configuration.main.size = (1280, 720)
 cam.framerate = 500
-cam.preview_configuration.main.format = "RGB888"
+# cam.preview_configuration.main.format = "RGB888"
 cam.preview_configuration.main.align()
 cam.configure("preview")
 cam.start()
