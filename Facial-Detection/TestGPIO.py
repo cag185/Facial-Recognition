@@ -23,12 +23,16 @@ GPIO.output(led_pin, GPIO.LOW)
 print("Indicated the 12th GPIO pin is working.....")
 
 # load in a testing image
+print("loading images")
 verified_user_photo = "../testphoto_verified.png"
 unverified_user_photo = "../testphoto_unverified.png"
 
+print("loading model")
 # load in the svm model
 with open('OCSVM_model.pkl', 'rb') as file:
     lsvc = pickle.load(file)
+
+print("getting label from svm")
 
 
 def getLabel(photo):
@@ -72,6 +76,8 @@ def getLabel(photo):
 
 
 # unlock on the verified user
+print("Unlock verified user")
 getLabel(verified_user_photo)
 # remain locked on the non-verified user
+print("Lock unverified user")
 getLabel(unverified_user_photo)
