@@ -1,5 +1,5 @@
 import cv2
-from camera2 import camera2, Preview
+from picamera2 import Picamera2, Preview
 import time
 import os
 
