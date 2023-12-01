@@ -52,8 +52,6 @@ def newPhotoFromCam():
 def getLabel():
     opened_img = np.asarray(Image.open(
         new_test_img).convert('L'))
-    cv2.imshow('img', opened_img)
-    cv2.waitKey(0)
 
     # try and use the haarcascade filter on the image to better work with the model
     haar_cascade = cv2.CascadeClassifier(
