@@ -6,8 +6,8 @@ import numpy as np
 import os
 import pickle
 from PIL import Image
-from picamera2 import Picamera2
-import RPi.GPIO as GPIO
+# from picamera2 import Picamera2
+# import RPi.GPIO as GPIO
 import time
 # value for an authorized user
 authorized = 1
@@ -17,30 +17,30 @@ unauthorized = -1
 # add in some code to control the GPIO pin
 led_pin = 12
 led_interval = .1
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(led_pin, GPIO.OUT, initial=GPIO.LOW)
+# GPIO.setwarnings(False)
+# GPIO.setmode(GPIO.BCM)
+# GPIO.setup(led_pin, GPIO.OUT, initial=GPIO.LOW)
 
-GPIO.output(led_pin, GPIO.HIGH)
-time.sleep(led_interval)
-GPIO.output(led_pin, GPIO.LOW)
-time.sleep(led_interval)
-GPIO.output(led_pin, GPIO.HIGH)
-time.sleep(led_interval)
-GPIO.output(led_pin, GPIO.LOW)
+# GPIO.output(led_pin, GPIO.HIGH)
+# time.sleep(led_interval)
+# GPIO.output(led_pin, GPIO.LOW)
+# time.sleep(led_interval)
+# GPIO.output(led_pin, GPIO.HIGH)
+# time.sleep(led_interval)
+# GPIO.output(led_pin, GPIO.LOW)
 print("Indicated the 12th GPIO pin is working.....")
 # start the camera
-piCam = Picamera2()
-piCam.preview_configuration.main.size = (1280, 720)
-piCam.framerate = 500
-piCam.preview_configuration.main.format = "RGB888"
-piCam.preview_configuration.align()
-piCam.configure("preview")
-piCam.start()
-time.sleep(2)
-frame = piCam.capture_array()
-cv2.imwrite("testImageCaptured.png", frame)
-piCam.close()
+# piCam = Picamera2()
+# piCam.preview_configuration.main.size = (1280, 720)
+# piCam.framerate = 500
+# piCam.preview_configuration.main.format = "RGB888"
+# piCam.preview_configuration.align()
+# piCam.configure("preview")
+# piCam.start()
+# time.sleep(2)
+# frame = piCam.capture_array()
+# cv2.imwrite("testImageCaptured.png", frame)
+# piCam.close()
 
 # load in the SVC model
 with open('OCSVM_model.pkl', 'rb') as file:
@@ -75,7 +75,7 @@ def newPhotoFromCam():
 
 def getLabel():
     opened_img = np.asarray(Image.open(
-        photo_filename).convert('L'))
+        photo_filename_unverified).convert('L'))
     cv2.imshow('img', opened_img)
     cv2.waitKey(0)
 
@@ -99,13 +99,13 @@ def getLabel():
         print(f"Prediction.....{prediction[0]}")
         if (prediction[0] == authorized):
             # blink the GPIO pin
-            GPIO.output(led_pin, GPIO.HIGH)
-            time.sleep(led_interval)
-            GPIO.output(led_pin, GPIO.LOW)
-            time.sleep(led_interval)
-            GPIO.output(led_pin, GPIO.HIGH)
-            time.sleep(led_interval)
-            GPIO.output(led_pin, GPIO.LOW)
+            # GPIO.output(led_pin, GPIO.HIGH)
+            # time.sleep(led_interval)
+            # GPIO.output(led_pin, GPIO.LOW)
+            # time.sleep(led_interval)
+            # GPIO.output(led_pin, GPIO.HIGH)
+            # time.sleep(led_interval)
+            # GPIO.output(led_pin, GPIO.LOW)
             print("The light is blinking....successful unlock")
         else:
             print("the light is not on....door locked")
