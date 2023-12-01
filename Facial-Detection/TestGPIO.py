@@ -16,20 +16,6 @@ led_interval = .5
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(led_pin, GPIO.OUT, initial=GPIO.LOW)
-
-GPIO.output(led_pin, GPIO.HIGH)
-time.sleep(led_interval)
-GPIO.output(led_pin, GPIO.LOW)
-time.sleep(led_interval)
-GPIO.output(led_pin, GPIO.HIGH)
-time.sleep(led_interval)
-GPIO.output(led_pin, GPIO.LOW)
-GPIO.output(led_pin, GPIO.HIGH)
-time.sleep(led_interval)
-GPIO.output(led_pin, GPIO.LOW)
-GPIO.output(led_pin, GPIO.HIGH)
-time.sleep(led_interval)
-GPIO.output(led_pin, GPIO.LOW)
 print("Indicated the 12th GPIO pin is working.....")
 
 # load in a testing image
@@ -72,19 +58,11 @@ def getLabel(photo):
         if (prediction[0] == authorized):
             # blink the GPIO pin
             GPIO.output(led_pin, GPIO.HIGH)
-            time.sleep(led_interval)
-            GPIO.output(led_pin, GPIO.LOW)
-            time.sleep(led_interval)
-            GPIO.output(led_pin, GPIO.HIGH)
-            time.sleep(led_interval)
-            GPIO.output(led_pin, GPIO.LOW)
-            time.sleep(led_interval)
             time.sleep(5)
+            GPIO.output(led_pin, GPIO.LOW)
             print("The light is blinking....successful unlock")
         else:
             print("the light is not on....door locked")
-            GPIO.output(led_pin, GPIO.HIGH)
-            time.sleep(led_interval)
             GPIO.output(led_pin, GPIO.LOW)
 
     else:
