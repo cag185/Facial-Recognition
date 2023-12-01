@@ -10,3 +10,7 @@
 # /Test-Images
 
 /Video-to-frames/haar_cascade_frames
+
+# remove the env stuff
+/my-env
+/myenv
