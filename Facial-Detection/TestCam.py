@@ -3,7 +3,7 @@ from picamera2 import Picamera2, Preview
 import time
 import os
 
-cam = camera2()
+cam = Picamera2()
 cam.preview_configuration.main.size = (1280, 720)
 cam.framerate = 500
 cam.preview_configuration.main.format = "RGB888"
