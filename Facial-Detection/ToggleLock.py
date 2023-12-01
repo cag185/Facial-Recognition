@@ -6,76 +6,50 @@ import numpy as np
 import os
 import pickle
 from PIL import Image
-# from picamera2 import Picamera2
-# import RPi.GPIO as GPIO
+from picamera2 import Picamera2
+import RPi.GPIO as GPIO
 import time
 # value for an authorized user
 authorized = 1
 # value for unauthorized user
 unauthorized = -1
 
-# add in some code to control the GPIO pin
-led_pin = 12
-led_interval = .1
-# GPIO.setwarnings(False)
-# GPIO.setmode(GPIO.BCM)
-# GPIO.setup(led_pin, GPIO.OUT, initial=GPIO.LOW)
-
-# GPIO.output(led_pin, GPIO.HIGH)
-# time.sleep(led_interval)
-# GPIO.output(led_pin, GPIO.LOW)
-# time.sleep(led_interval)
-# GPIO.output(led_pin, GPIO.HIGH)
-# time.sleep(led_interval)
-# GPIO.output(led_pin, GPIO.LOW)
+# add in some code to control the GPIO pin (18)
+led_pin = 18
+led_interval = .5
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(led_pin, GPIO.OUT, initial=GPIO.LOW)
 print("Indicated the 12th GPIO pin is working.....")
-# start the camera
-# piCam = Picamera2()
-# piCam.preview_configuration.main.size = (1280, 720)
-# piCam.framerate = 500
-# piCam.preview_configuration.main.format = "RGB888"
-# piCam.preview_configuration.align()
-# piCam.configure("preview")
-# piCam.start()
-# time.sleep(2)
-# frame = piCam.capture_array()
-# cv2.imwrite("testImageCaptured.png", frame)
-# piCam.close()
+
 
 # load in the SVC model
 with open('OCSVM_model.pkl', 'rb') as file:
     lsvc = pickle.load(file)
 
-# create a function to load in a new image
-photo_filename_verified = "testphoto_verified.png"
-photo_filename_unverified = "testphoto_unverified.png"
+# initialize the camera
+cam = Picamera2()
+cam.preview_configuration.main.size = (1280, 720)
+cam.framerate = 500
+cam.preview_configuration.main.format = "RGB888"
+cam.preview_configuration.main.align()
+cam.configure("preview")
+cam.start()
 
 
 def newPhotoFromCam():
     # take the photo
-    cam_index = 0
-    print("waiting to take picture, press space to take")
-    key = cv2.waitKey(0)
-    capture = cv2.VideoCapture(cam_index)
-    if not capture.isOpened():
-        print("Error: could not open webcam")
-        return
-    ret, frame = capture.read()
-    if not ret:
-        print("Error: failed to capture a frame.")
-        capture.release()
-        return
-
-    cv2.imwrite(photo_filename_verified, frame)
-    cv2.imshow('image', frame)
-    # release webcam
-    capture.release()
-    cv2.destroyAllWindows()
+    print("Prepare to take a picture in 2 seconds")
+    time.sleep(2)
+    frame = cam.capture_array()
+    pil_image = Image.fromarray(frame)
+    new_test_img = "new_testing_img.png"
+    pil_image.save(new_test_img)
 
 
 def getLabel():
     opened_img = np.asarray(Image.open(
-        photo_filename_verified).convert('L'))
+        new_test_img).convert('L'))
     cv2.imshow('img', opened_img)
     cv2.waitKey(0)
 
@@ -98,14 +72,9 @@ def getLabel():
         prediction = lsvc.predict(new_image)
         print(f"Prediction.....{prediction[0]}")
         if (prediction[0] == authorized):
-            # blink the GPIO pin
-            # GPIO.output(led_pin, GPIO.HIGH)
-            # time.sleep(led_interval)
-            # GPIO.output(led_pin, GPIO.LOW)
-            # time.sleep(led_interval)
-            # GPIO.output(led_pin, GPIO.HIGH)
-            # time.sleep(led_interval)
-            # GPIO.output(led_pin, GPIO.LOW)
+            GPIO.output(led_pin, GPIO.HIGH)
+            time.sleep(5)
+            GPIO.output(led_pin, GPIO.LOW)
             print("The light is blinking....successful unlock")
         else:
             print("the light is not on....door locked")
