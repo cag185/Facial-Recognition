@@ -7,8 +7,8 @@ import RPi.GPIO as GPIO
 import time
 
 # define constants
-unauthorized = 0
-authorized = 1
+unauthorized = 1
+authorized = -1
 
 # add in some code to control the GPIO pin (pin 18)
 led_pin = 18
