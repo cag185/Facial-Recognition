@@ -36,6 +36,9 @@ cam.preview_configuration.main.align()
 cam.configure("preview")
 cam.start()
 
+# state the testing image name
+new_test_img = "new_testing_img.png"
+
 
 def newPhotoFromCam():
     # take the photo
@@ -43,7 +46,6 @@ def newPhotoFromCam():
     time.sleep(2)
     frame = cam.capture_array()
     pil_image = Image.fromarray(frame)
-    new_test_img = "new_testing_img.png"
     pil_image.save(new_test_img)
 
 
