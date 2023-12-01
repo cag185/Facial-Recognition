@@ -54,7 +54,9 @@ def getLabel(photo):
 
         new_image = (cv2.resize(face_roi, (100, 100)).flatten()).reshape(1, -1)
         prediction = lsvc.predict(new_image)
+        print(".........................")
         print(f"Prediction.....{prediction[0]}")
+        print(".........................")
         if (prediction[0] == authorized):
             # blink the GPIO pin
             GPIO.output(led_pin, GPIO.HIGH)
