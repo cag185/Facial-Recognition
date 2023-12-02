@@ -2,6 +2,8 @@
 
 import cv2
 import os
+from picamera2 import Picamera2
+import RPi.GPIO as GPIO
 import sys
 import time
 
@@ -48,25 +50,6 @@ def recordVideoLaptop(file_dest):
     cv2.destroyAllWindows()
     print(f"Video saved to: {file_dest}")
 
-
-# to get the first arg
-user_to_create = sys.argv[1]  # gets the first argument
-# user_to_create = "calebG"
-
-print(f"The user to create {user_to_create}")
-
-# check if the folder does not exist currently
-folder = "../Video-to-frames/video_to_split/"
-filer = user_to_create + ".mp4"
-# file_dest = os.path.join(folder, filer)
-file_dest = folder + filer
-doesExist = os.path.exists(file_dest)
-if (doesExist):
-    print(f"{user_to_create}.mp4 already exists!")
-else:
-    # record the video
-    # on the laptop
-    recordVideoLaptop(file_dest)
     # after recording, try to split to frames
     try:
         print("Converting video to frames...")
@@ -76,7 +59,71 @@ else:
     else:
         print("Success....")
 
-    # try to break into haar_cascade
+# function to take a recording using the rasb pi cam
+
+
+def recordVideoPi(file_dest):
+    # set the GPIO pin for the recording LED
+    recording_indicator = 17
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(recording_indicator, GPIO.OUT, initial=GPIO.LOW)
+
+    # Initialize the camerea
+    cam = Picamera2()
+    cam.preview_configuration.main.size = (1280, 720)
+    cam.framerate = 500
+    cam.preview_configuration.main.align()
+    cam.configure("Preview")
+    cam.start()
+
+    # the camera is about to start recording
+    print("....................................................")
+    print("The camera is about to start recording for 5 seconds")
+    print("....................................................")
+
+    # set the LED indicator to high
+    GPIO.output(recording_indicator, GPIO.HIGH)
+
+    # start the recording
+    start_time = time.time()
+    end_time = start_time + 5
+    pic_count = 0
+    while (time.time() < end_time):
+        frame = cam.capture_array()
+        pil_image = Image.fromarray(frame)
+        pil_image_dest = file_dest + str(pic_count) + ".png"
+        pil_image.save(pil_image_dest)
+        # finally increase the pic counter
+        pic_count += 1
+
+    print(f"Frames saved to: {file_dest}")
+
+
+# to get the first arg
+user_to_create = sys.argv[1]  # gets the first argument
+# user_to_create = "calebG"
+
+print(f"The user to create {user_to_create}")
+
+# # check if the folder does not exist currently
+# folder = "../Video-to-frames/video_to_split/"
+# filer = user_to_create + ".mp4"
+# create the folder that points to the frame images
+folder = "../Video-to-frames/frames/"
+filer = user_to_create + "/"
+
+# file_dest = os.path.join(folder, filer)
+file_dest = folder + filer
+doesExist = os.path.exists(file_dest)
+if (doesExist):
+    print(f"{user_to_create} folder already exists!")
+else:
+    # # record the video
+    # # on the laptop
+    # recordVideoLaptop(file_dest)
+    # # try to break into haar_cascade
+    recordVideoPi(file_dest)
     try:
         print("Converting frames to haar_cascade...")
         import FeatureExtraction
