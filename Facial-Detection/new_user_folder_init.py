@@ -97,6 +97,7 @@ def recordVideoPi(file_dest):
         # finally increase the pic counter
         pic_count += 1
 
+    GPIO.output(recording_indicator, GPIO.LOW)
     print(f"Frames saved to: {file_dest}")
 
 
