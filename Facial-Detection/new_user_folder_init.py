@@ -2,8 +2,8 @@
 
 import cv2
 import os
-from picamera2 import Picamera2
-import RPi.GPIO as GPIO
+# from picamera2 import Picamera2
+# import RPi.GPIO as GPIO
 import sys
 import time
 
@@ -62,43 +62,43 @@ def recordVideoLaptop(file_dest):
 # function to take a recording using the rasb pi cam
 
 
-def recordVideoPi(file_dest):
-    # set the GPIO pin for the recording LED
-    recording_indicator = 17
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(recording_indicator, GPIO.OUT, initial=GPIO.LOW)
+# def recordVideoPi(file_dest):
+#     # set the GPIO pin for the recording LED
+#     recording_indicator = 17
+#     GPIO.setwarnings(False)
+#     GPIO.setmode(GPIO.BCM)
+#     GPIO.setup(recording_indicator, GPIO.OUT, initial=GPIO.LOW)
 
-    # Initialize the camerea
-    cam = Picamera2()
-    cam.preview_configuration.main.size = (1280, 720)
-    cam.framerate = 500
-    cam.preview_configuration.main.align()
-    cam.configure("Preview")
-    cam.start()
+#     # Initialize the camerea
+#     cam = Picamera2()
+#     cam.preview_configuration.main.size = (1280, 720)
+#     cam.framerate = 500
+#     cam.preview_configuration.main.align()
+#     cam.configure("Preview")
+#     cam.start()
 
-    # the camera is about to start recording
-    print("....................................................")
-    print("The camera is about to start recording for 5 seconds")
-    print("....................................................")
+#     # the camera is about to start recording
+#     print("....................................................")
+#     print("The camera is about to start recording for 5 seconds")
+#     print("....................................................")
 
-    # set the LED indicator to high
-    GPIO.output(recording_indicator, GPIO.HIGH)
+#     # set the LED indicator to high
+#     GPIO.output(recording_indicator, GPIO.HIGH)
 
-    # start the recording
-    start_time = time.time()
-    end_time = start_time + 5
-    pic_count = 0
-    while (time.time() < end_time):
-        frame = cam.capture_array()
-        pil_image = Image.fromarray(frame)
-        pil_image_dest = file_dest + str(pic_count) + ".png"
-        pil_image.save(pil_image_dest)
-        # finally increase the pic counter
-        pic_count += 1
+#     # start the recording
+#     start_time = time.time()
+#     end_time = start_time + 5
+#     pic_count = 0
+#     while (time.time() < end_time):
+#         frame = cam.capture_array()
+#         pil_image = Image.fromarray(frame)
+#         pil_image_dest = file_dest + str(pic_count) + ".png"
+#         pil_image.save(pil_image_dest)
+#         # finally increase the pic counter
+#         pic_count += 1
 
-    GPIO.output(recording_indicator, GPIO.LOW)
-    print(f"Frames saved to: {file_dest}")
+#     GPIO.output(recording_indicator, GPIO.LOW)
+#     print(f"Frames saved to: {file_dest}")
 
 
 # to get the first arg
@@ -122,7 +122,7 @@ if (doesExist):
 else:
     # # record the video
     # # on the laptop
-    # recordVideoLaptop(file_dest)
+    recordVideoLaptop(file_dest)
     # # try to break into haar_cascade
     recordVideoPi(file_dest)
     try:
