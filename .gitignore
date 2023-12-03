@@ -1,5 +1,6 @@
 # ignore the folder with the images of frames
 /Video-to-frames/frames/
+!/Video-to-frames/frames/unauthorized_user
 
 # ignore the folder with the video file
 /Video-to-frames/video_to_split
