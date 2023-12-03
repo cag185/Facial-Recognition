@@ -32,7 +32,7 @@ class SVC_facial_detection():
 
         # loop through each person and give them an authorized label
         for person in face_list:
-            print("loading...person: " + person)
+            # print("loading...person: " + person)
             image_dir = parent_folder + person + "/"
             img_list = os.listdir(image_dir)
 
@@ -59,7 +59,7 @@ class SVC_facial_detection():
                     label_arr.append(1)
                 img_count += 1
 
-            print("loaded person: " + person + " successfully")
+            # print("loaded person: " + person + " successfully")
             person_label += 1
 
         # now that we are done collecting images of people
@@ -147,64 +147,64 @@ svc_object = SVC_facial_detection()
 # train the object
 svc_object.train_model()
 
-# load in the testing images for Caleb
-caleb_dir = "../Test-Images/Caleb"
-# caleb_dir = "Test-Images/Caleb"
-caleb_files = os.listdir(caleb_dir)
-print("------ Testing images for Caleb ------")
-for img in caleb_files:
-    full_file = caleb_dir + "/" + img
-    loadNewPhoto(full_file)
+# # load in the testing images for Caleb
+# caleb_dir = "../Test-Images/Caleb"
+# # caleb_dir = "Test-Images/Caleb"
+# caleb_files = os.listdir(caleb_dir)
+# print("------ Testing images for Caleb ------")
+# for img in caleb_files:
+#     full_file = caleb_dir + "/" + img
+#     loadNewPhoto(full_file)
 
-# load in the testing images for Cam
-cam_dir = "../Test-Images/Cam"
-# cam_dir = "Test-Images/Cam"
-cam_files = os.listdir(cam_dir)
-print("------ Testing images for Cam ------")
-for img in cam_files:
-    full_file = cam_dir + "/" + img
-    loadNewPhoto(full_file)
+# # load in the testing images for Cam
+# cam_dir = "../Test-Images/Cam"
+# # cam_dir = "Test-Images/Cam"
+# cam_files = os.listdir(cam_dir)
+# print("------ Testing images for Cam ------")
+# for img in cam_files:
+#     full_file = cam_dir + "/" + img
+#     loadNewPhoto(full_file)
 
-# load in the testing images for Hudson
-hudson_dir = "../Test-Images/Hudson"
-# hudson_dir = "Test-Images/Hudson"
-hudson_files = os.listdir(hudson_dir)
-print("------ Testing images for Hudson ------")
-for img in hudson_files:
-    full_file = hudson_dir + "/" + img
-    loadNewPhoto(full_file)
+# # load in the testing images for Hudson
+# hudson_dir = "../Test-Images/Hudson"
+# # hudson_dir = "Test-Images/Hudson"
+# hudson_files = os.listdir(hudson_dir)
+# print("------ Testing images for Hudson ------")
+# for img in hudson_files:
+#     full_file = hudson_dir + "/" + img
+#     loadNewPhoto(full_file)
 
-# load in the testing images for Lucas
-lucas_dir = "../Test-Images/Lucas"
-# lucas_dir = "Test-Images/Lucas"
-lucas_files = os.listdir(lucas_dir)
-print("------ Testing images for Lucas ------")
-for img in lucas_files:
-    full_file = lucas_dir + "/" + img
-    loadNewPhoto(full_file)
+# # load in the testing images for Lucas
+# lucas_dir = "../Test-Images/Lucas"
+# # lucas_dir = "Test-Images/Lucas"
+# lucas_files = os.listdir(lucas_dir)
+# print("------ Testing images for Lucas ------")
+# for img in lucas_files:
+#     full_file = lucas_dir + "/" + img
+#     loadNewPhoto(full_file)
 
-# load in the testing images for MATT
-matt_dir = "../Test-Images/Matt"
-# matt_dir = "Test-Images/Matt"
-matt_files = os.listdir(matt_dir)
-print("------ Testing images for Matt ------")
-for img in matt_files:
-    full_file = matt_dir + "/" + img
-    loadNewPhoto(full_file)
+# # load in the testing images for MATT
+# matt_dir = "../Test-Images/Matt"
+# # matt_dir = "Test-Images/Matt"
+# matt_files = os.listdir(matt_dir)
+# print("------ Testing images for Matt ------")
+# for img in matt_files:
+#     full_file = matt_dir + "/" + img
+#     loadNewPhoto(full_file)
 
-# load in the testing images for JACK
-jack_dir = "../Test-Images/Jack"
-# jack_dir = "Test-Images/Jack"
-jack_files = os.listdir(jack_dir)
-print("------ Testing images for Jack ------")
-for img in jack_files:
-    full_file = jack_dir + "/" + img
-    loadNewPhoto(full_file)
+# # load in the testing images for JACK
+# jack_dir = "../Test-Images/Jack"
+# # jack_dir = "Test-Images/Jack"
+# jack_files = os.listdir(jack_dir)
+# print("------ Testing images for Jack ------")
+# for img in jack_files:
+#     full_file = jack_dir + "/" + img
+#     loadNewPhoto(full_file)
 
-# load in the testing images for Unathorized testing people
-unauthor_dir = "../Test-Images/Unauthorized_users"
-unauthor_files = os.listdir(unauthor_dir)
-print("------ Testing images for Unauthorized Users ------")
-for img in unauthor_files:
-    full_file = unauthor_dir + "/" + img
-    loadNewPhoto(full_file)
+# # load in the testing images for Unathorized testing people
+# unauthor_dir = "../Test-Images/Unauthorized_users"
+# unauthor_files = os.listdir(unauthor_dir)
+# print("------ Testing images for Unauthorized Users ------")
+# for img in unauthor_files:
+#     full_file = unauthor_dir + "/" + img
+#     loadNewPhoto(full_file)
