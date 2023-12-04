@@ -133,7 +133,7 @@ else:
     # # on the laptop
     # # try to break into haar_cascade
     # create a destintation folder
-    os.mkdir(file_dest)
+    # os.mkdir(folder_file)
     recordVideoLaptop(file_dest)
     # recordVideoPi(file_dest)
     try:
