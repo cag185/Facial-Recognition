@@ -26,7 +26,8 @@ for person in person_folders:
     folderExists = os.path.exists(folder)
     if (not folderExists):
         # generate the folder
-        # os.mkdir(folder)
+        os.mkdir(folder)
+        print("should have made folder")
         # get each picture in the persons folder
         print("haar cascade folder does not exist")
         pics = os.listdir(person_folder_path)
