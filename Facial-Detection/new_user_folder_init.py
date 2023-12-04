@@ -73,7 +73,7 @@ def recordVideoPi(file_dest):
     # Initialize the camerea
     cam = Picamera2()
     cam.preview_configuration.main.size = (1280, 720)
-    cam.framerate = 500
+    cam.framerate = 60
     cam.preview_configuration.main.align()
     cam.configure("Preview")
     cam.start()
