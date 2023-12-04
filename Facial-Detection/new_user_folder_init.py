@@ -125,6 +125,8 @@ else:
     # # on the laptop
     # recordVideoLaptop(file_dest)
     # # try to break into haar_cascade
+    # create a destintation folder
+    os.mkdir(file_dest)
     recordVideoPi(file_dest)
     try:
         print("Converting frames to haar_cascade...")
