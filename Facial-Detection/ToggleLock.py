@@ -6,7 +6,7 @@ import numpy as np
 import os
 import pickle
 from PIL import Image
-from picamera2 import Picamera2
+# from picamera2 import Picamera2
 import RPi.GPIO as GPIO
 import time
 # value for an authorized user
@@ -28,13 +28,16 @@ with open('OCSVM_model.pkl', 'rb') as file:
     lsvc = pickle.load(file)
 
 # initialize the camera
-cam = Picamera2()
-cam.preview_configuration.main.size = (1280, 720)
-cam.framerate = 500
-# cam.preview_configuration.main.format = "RGB888"
-cam.preview_configuration.main.align()
-cam.configure("preview")
-cam.start()
+cap = cv2.VideoCapture('/dev/video2')
+# check if cam exposed
+if not (cap.isOpened()):
+    print("Error cam not opened")
+    exit()
+width = 640
+height = 480
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+
 
 # state the testing image name
 new_test_img = "new_testing_img.png"
@@ -44,7 +47,7 @@ def newPhotoFromCam():
     # take the photo
     print("Prepare to take a picture in 2 seconds")
     time.sleep(2)
-    frame = cam.capture_array()
+    ret, frame = cap.read()
     pil_image = Image.fromarray(frame)
     pil_image.save(new_test_img)
 
