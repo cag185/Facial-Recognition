@@ -88,5 +88,3 @@ def getLabel():
 # run the functions to test
 newPhotoFromCam()
 getLabel()
-
-cam.stop()
