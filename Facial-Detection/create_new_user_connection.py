@@ -8,7 +8,10 @@ folder_name_to_create = sys.argv[0]
 venv_path = '~/Desktop/Facial-Recognition/venv'
 
 # Activate the virtual environment
-activate_command = f'source {venv_path}/bin/activate'
+try:
+    activate_command = f'source {venv_path}/bin/activate'
+except Error as e:
+    print(f"weird error {e}")
 
 # Run the Python script
 # Replace with the actual path to your Python script
