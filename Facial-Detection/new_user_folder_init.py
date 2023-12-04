@@ -2,6 +2,7 @@
 
 import cv2
 import os
+from PIL import Image
 from picamera2 import Picamera2
 import RPi.GPIO as GPIO
 import sys
