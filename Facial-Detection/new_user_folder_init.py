@@ -11,7 +11,7 @@ import time
 
 def recordVideoLaptop(file_dest):
     # start a recording with CV2
-    cap = cv2.VideoCapture(7)
+    cap = cv2.VideoCapture('dev/video3')
     # check if camera opened
     if not cap.isOpened():
         print("Error: could not open camera.")
