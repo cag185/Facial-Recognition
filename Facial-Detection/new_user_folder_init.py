@@ -80,7 +80,7 @@ def recordVideoPi(file_dest):
 
     # the camera is about to start recording
     print("....................................................")
-    print("The camera is about to start recording for 5 seconds")
+    print("The camera is about to start recording for 10 seconds")
     print("....................................................")
 
     # set the LED indicator to high
@@ -88,7 +88,7 @@ def recordVideoPi(file_dest):
 
     # start the recording
     start_time = time.time()
-    end_time = start_time + 5
+    end_time = start_time + 10
     pic_count = 0
     while (time.time() < end_time):
         frame = cam.capture_array()
