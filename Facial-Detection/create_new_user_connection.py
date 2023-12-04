@@ -8,7 +8,7 @@ folder_name = sys.argv[0]
 venv_path = '~/Desktop/Facial-Recognition/venv'
 
 # Activate the virtual environment directly without using source
-activate_command = os.path.join(venv_path, 'bin', 'activate_this.py')
+activate_command = os.path.join(venv_path, 'bin', 'activate')
 exec(open(activate_command).read(), {'__file__': activate_command})
 
 # Run the Python script
