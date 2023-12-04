@@ -21,7 +21,7 @@ led_interval = .5
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(led_pin, GPIO.OUT, initial=GPIO.LOW)
-GPIO.setup(read_pin, GPIO.OUT, intitial=GPIO.LOW)
+GPIO.setup(read_pin, GPIO.OUT, initial=GPIO.LOW)
 
 print("Indicated the 12th GPIO pin is working.....")
 
