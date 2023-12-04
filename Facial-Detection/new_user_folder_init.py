@@ -3,10 +3,18 @@
 import cv2
 import os
 from PIL import Image
-#from picamera2 import Picamera2
+# from picamera2 import Picamera2
 import RPi.GPIO as GPIO
 import sys
 import time
+
+# check if the API has called this
+led_pin = 17
+led_int = .5
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(led_pin, GPIO.OUT, initial=GPIO.LOW)
+GPIO.output(led_pin, GPIO.HIGH)
 
 
 def recordVideoLaptop(file_dest):
@@ -153,17 +161,8 @@ else:
     except Exception as e:
         print(f"Error training model: {e}")
     else:
-        print("Success...." )
+        print("Success....")
 
-# check if the API has called this
-led_pin = 17
-led_int = .5
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(led_pin, GPIO.OUT, initial=GPIO.LOW)
 
-GPIO.output(led_pin, GPIO.HIGH)
 time.sleep(led_int)
 GPIO.output(led_pin, GPIO.LOW)
-time.sleep(led_int)
-
