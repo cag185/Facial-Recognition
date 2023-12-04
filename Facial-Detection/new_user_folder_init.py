@@ -72,7 +72,7 @@ def recordVideoPi(file_dest):
 
     # Initialize the camerea
     cam = Picamera2()
-    cam.preview_configuration.main.size = (1280, 720)
+    cam.preview_configuration.main.size = (1920, 1080)
     cam.framerate = 60
     cam.preview_configuration.main.align()
     cam.configure("Preview")
@@ -80,7 +80,7 @@ def recordVideoPi(file_dest):
 
     # the camera is about to start recording
     print("....................................................")
-    print("The camera is about to start recording for 10 seconds")
+    print("The camera is about to start recording for 5 seconds")
     print("....................................................")
 
     # set the LED indicator to high
@@ -88,10 +88,12 @@ def recordVideoPi(file_dest):
 
     # start the recording
     start_time = time.time()
-    end_time = start_time + 10
+    end_time = start_time + 5
     pic_count = 0
+    frame_array = []
     while (time.time() < end_time):
-        frame = cam.capture_array()
+        frame_array.append(cam.capture_array())
+    for frame in frame_array:
         pil_image = Image.fromarray(frame)
         pil_image_dest = file_dest + "face" + str(pic_count) + ".png"
         pil_image = pil_image.save(pil_image_dest)
