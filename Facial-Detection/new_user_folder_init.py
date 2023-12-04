@@ -117,14 +117,15 @@ print(f"The user to create {user_to_create}")
 
 # # check if the folder does not exist currently
 folder = "../Video-to-frames/video_to_split/"
-filer = user_to_create + ".mp4"
+folder_file = folder + user_to_create
+filer = ".mp4"
 # create the folder that points to the frame images
 # folder = "../Video-to-frames/frames/"
 # filer = user_to_create + "/"
 
 # file_dest = os.path.join(folder, filer)
-file_dest = folder + filer
-doesExist = os.path.exists(folder)
+file_dest = folder_file + filer
+doesExist = os.path.exists(folder_file)
 if (doesExist):
     print(f"{user_to_create} folder already exists!")
 else:
@@ -132,7 +133,7 @@ else:
     # # on the laptop
     # # try to break into haar_cascade
     # create a destintation folder
-    os.mkdir(folder)
+    os.mkdir(folder_file)
     recordVideoLaptop(file_dest)
     # recordVideoPi(file_dest)
     try:
