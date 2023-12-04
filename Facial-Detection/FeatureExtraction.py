@@ -28,6 +28,7 @@ for person in person_folders:
         # generate the folder
         # os.mkdir(folder)
         # get each picture in the persons folder
+        print("haar cascade folder does not exist")
         pics = os.listdir(person_folder_path)
         pic_count = 0
         # grab every picture to train a better model
@@ -64,6 +65,7 @@ for person in person_folders:
                     doesExist = os.path.exists(person_out_folder)
                     if not doesExist:
                         os.mkdir(person_out_folder)
+                        print("Created haarcascade folder for person")
 
                     file_dest = person_out_folder + "/" + \
                         "face_%d.jpg" % (pic_count+1)
