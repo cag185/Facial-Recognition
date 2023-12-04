@@ -3,15 +3,16 @@
 import cv2
 import os
 from PIL import Image
-from picamera2 import Picamera2
+#from picamera2 import Picamera2
 import RPi.GPIO as GPIO
 import sys
 import time
 
 
 def recordVideoLaptop(file_dest):
+    print("inside function")
     # start a recording with CV2
-    cap = cv2.VideoCapture('dev/video3')
+    cap = cv2.VideoCapture('/dev/video2')
     # check if camera opened
     if not cap.isOpened():
         print("Error: could not open camera.")
@@ -134,6 +135,7 @@ else:
     # # try to break into haar_cascade
     # create a destintation folder
     # os.mkdir(folder_file)
+    print("Entering the recording prompt")
     recordVideoLaptop(file_dest)
     # recordVideoPi(file_dest)
     try:
