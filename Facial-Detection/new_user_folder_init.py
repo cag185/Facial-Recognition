@@ -10,7 +10,7 @@ import time
 
 def recordVideoLaptop(file_dest):
     # start a recording with CV2
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
     # check if camera opened
     if not cap.isOpened():
         print("Error: could not open camera.")
@@ -32,6 +32,10 @@ def recordVideoLaptop(file_dest):
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(file_dest, fourcc, 20.0, (width, height))
 
+    print("........................")
+    print("The camcorder will record for 5 seconds in 2 seconds. Please stare into the lens")
+    print("........................")
+    time.sleep(2)
     while time.time() < end_time:
         # capture each frame
         ret, frame = cap.read()
