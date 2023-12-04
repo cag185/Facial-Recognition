@@ -108,23 +108,23 @@ user_to_create = sys.argv[1]  # gets the first argument
 print(f"The user to create {user_to_create}")
 
 # # check if the folder does not exist currently
-# folder = "../Video-to-frames/video_to_split/"
-# filer = user_to_create + ".mp4"
+folder = "../Video-to-frames/video_to_split/"
+filer = user_to_create + ".mp4"
 # create the folder that points to the frame images
-folder = "../Video-to-frames/frames/"
-filer = user_to_create + "/"
+# folder = "../Video-to-frames/frames/"
+# filer = user_to_create + "/"
 
-# file_dest = os.path.join(folder, filer)
-file_dest = folder + filer
+file_dest = os.path.join(folder, filer)
+# file_dest = folder + filer
 doesExist = os.path.exists(file_dest)
 if (doesExist):
-    print(f"{user_to_create} folder already exists!")
+    print(f"{user_to_create}.mp4 already exists!")
 else:
     # # record the video
     # # on the laptop
     recordVideoLaptop(file_dest)
     # # try to break into haar_cascade
-    recordVideoPi(file_dest)
+    # recordVideoPi(file_dest)
     try:
         print("Converting frames to haar_cascade...")
         import FeatureExtraction

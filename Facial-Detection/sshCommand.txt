@@ -1,1 +1,9 @@
 ssh -i "C:\Users\17578\Desktop\School\Class Files\Fall 2023\ECE 1896 - Senior Design\Facial-Detection-VM_key.pem" cag185@172.208.16.5
+
+172.20.10.2
+
+~/Desktop/Facial-Recognition/Facial-Detection/new_user_folder_init.py
+~/Desktop/Facial-Recognition/Facial-Detection/remove_user.py
+
+
+OPencv, scikit-learn, numpy all installed with sudo apt get and not pip

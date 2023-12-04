@@ -7,7 +7,7 @@ import os
 import pandas as pd
 import pickle
 from sklearn.decomposition import PCA
-from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.model_selection import train_test_split, RandomizedSearchCV
 from sklearn.svm import OneClassSVM
 from sklearn import svm
@@ -91,6 +91,27 @@ class SVC_facial_detection():
 
         self.testing_accuracy = accuracy_score(y_pred, y_test)
         print("Testing accuracy score: " + str(self.testing_accuracy))
+        labels = [-1, 1]
+        conf = confusion_matrix(y_true=y_test, y_pred=y_pred)
+
+        print("Confusion matrix: ")
+        print(conf)
+        tn = conf[0, 0]
+        fp = conf[0, 1]
+        tp = conf[1, 1]
+        fn = conf[1, 0]
+        # output
+        print(f"True positives for authorized class {tp}")
+        print(f"False negatives for authorized class {fn}")
+        print(f"True negatives for authorized class {tn}")
+        print(f"False positives for authorized class {fp}")
+
+        # Calculate and print classification report
+        report = classification_report(
+            y_true=y_test, y_pred=y_pred)
+        print("\nClassification Report:")
+        print(report)
+
         with open('OCSVM_model.pkl', 'wb') as file:
             pickle.dump(OCSVM, file)
 
