@@ -25,6 +25,8 @@ for person in person_folders:
         "../Video-to-frames/haar_cascade_frames/", person)
     folderExists = os.path.exists(folder)
     if (not folderExists):
+        # generate the folder
+        os.mkdir(folder)
         # get each picture in the persons folder
         pics = os.listdir(person_folder_path)
         pic_count = 0
