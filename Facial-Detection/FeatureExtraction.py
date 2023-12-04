@@ -26,7 +26,7 @@ for person in person_folders:
     folderExists = os.path.exists(folder)
     if (not folderExists):
         # generate the folder
-        os.mkdir(folder)
+        # os.mkdir(folder)
         # get each picture in the persons folder
         pics = os.listdir(person_folder_path)
         pic_count = 0
@@ -63,7 +63,7 @@ for person in person_folders:
                     person_out_folder = outfolder + person
                     doesExist = os.path.exists(person_out_folder)
                     if not doesExist:
-                        os.makedirs(person_out_folder)
+                        os.mkdir(person_out_folder)
 
                     file_dest = person_out_folder + "/" + \
                         "face_%d.jpg" % (pic_count+1)
