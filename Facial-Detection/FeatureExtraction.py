@@ -64,7 +64,7 @@ for person in person_folders:
                     person_out_folder = outfolder + person
                     doesExist = os.path.exists(person_out_folder)
                     if not doesExist:
-                        os.mkdir(person_out_folder)
+                        os.makedirs(person_out_folder)
                         print("Created haarcascade folder for person")
 
                     file_dest = person_out_folder + "/" + \
