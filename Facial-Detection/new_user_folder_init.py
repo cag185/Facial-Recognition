@@ -124,7 +124,7 @@ filer = user_to_create + ".mp4"
 
 # file_dest = os.path.join(folder, filer)
 file_dest = folder + filer
-doesExist = os.path.exists(file_dest)
+doesExist = os.path.exists(folder)
 if (doesExist):
     print(f"{user_to_create} folder already exists!")
 else:
