@@ -16,10 +16,13 @@ unauthorized = -1
 
 # add in some code to control the GPIO pin (18)
 led_pin = 18
+read_pin = 17
 led_interval = .5
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(led_pin, GPIO.OUT, initial=GPIO.LOW)
+GPIO.setup(read_pin, GPIO.OUT, intitial=GPIO.LOW)
+
 print("Indicated the 12th GPIO pin is working.....")
 
 
@@ -76,8 +79,10 @@ def getLabel():
         print(f"Prediction.....{prediction[0]}")
         if (prediction[0] == authorized):
             GPIO.output(led_pin, GPIO.HIGH)
+            GPIO.output(read_pin, GPIO.HIGH)
             time.sleep(5)
             GPIO.output(led_pin, GPIO.LOW)
+            GPIO.output(read_pin, GPIO.LOW)
             print("The light is blinking....successful unlock")
         else:
             print("the light is not on....door locked")
