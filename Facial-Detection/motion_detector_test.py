@@ -18,7 +18,7 @@ try:
         if GPIO.input(MotionDetector_Pin):
             print("---Motion Detected---")
             # run the classifier toggle
-            import OneClassSVM
+            import ToggleLock
             time.sleep(2)  # sleep for two seconds to avoid repeat detection
     time.sleep(0.1)
 
