@@ -11,7 +11,7 @@ import time
 
 def recordVideoLaptop(file_dest):
     # start a recording with CV2
-    cap = cv2.VideoCapture('/dev/video0')
+    cap = cv2.VideoCapture(0)
     # check if camera opened
     if not cap.isOpened():
         print("Error: could not open camera.")
@@ -133,7 +133,7 @@ else:
     # # on the laptop
     # # try to break into haar_cascade
     # create a destintation folder
-    os.mkdir(folder_file)
+    os.mkdir(file_dest)
     recordVideoLaptop(file_dest)
     # recordVideoPi(file_dest)
     try:
