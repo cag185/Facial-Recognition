@@ -94,7 +94,7 @@ def recordVideoPi(file_dest):
         frame = cam.capture_array()
         pil_image = Image.fromarray(frame)
         pil_image_dest = file_dest + "face" + str(pic_count) + ".png"
-        pil_image.save(pil_image_dest)
+        pil_image = pil_image.save(pil_image_dest)
         # finally increase the pic counter
         pic_count += 1
 
