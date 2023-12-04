@@ -125,9 +125,9 @@ filer = ".mp4"
 
 # file_dest = os.path.join(folder, filer)
 file_dest = folder_file + filer
-doesExist = os.path.exists(folder_file)
+doesExist = os.path.exists(file_dest)
 if (doesExist):
-    print(f"{user_to_create} folder already exists!")
+    print(f"{user_to_create}.mp4 already exists!")
 else:
     # # record the video
     # # on the laptop
