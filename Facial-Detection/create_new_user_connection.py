@@ -5,21 +5,21 @@ import os
 folder_name_to_create = sys.argv[0]
 
 # Replace '/path/to/venv' with the actual path to your virtual environment
-venv_path = '~/Desktop/Facial-Recognition/venv'
-
-# Activate the virtual environment
-try:
-    activate_command = f'source {venv_path}/bin/activate'
-except Error as e:
-    print(f"weird error {e}")
+venv_path = '~/Desktop/Facial-Recognition/venv/bin/activate'
 
 # Run the Python script
 # Replace with the actual path to your Python script
 script_to_run = '~/Desktop/Facial-Recognition/Facial-Detection/'
+
+# Activate the virtual environment directly without using source
+activate_command = venv_path
+exec(open(activate_command).read(), {'__file__': activate_command})
+
+# Run the Python script
 python_command = f'python {script_to_run} {folder_name_to_create}'
 
 # Combine commands and execute
-full_command = f'{activate_command} && {python_command}'
+full_command = f'{python_command}'
 
 try:
     subprocess.run(full_command, shell=True, check=True)
