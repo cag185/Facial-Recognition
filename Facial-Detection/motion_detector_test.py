@@ -23,9 +23,9 @@ try:
             print("---Motion Detected---")
             # run the classifier toggle
             toggleLock.callToggle()
-            print("-----Done Predicting. Detecting again in 1 second------")
+            print("-----Done Predicting.------")
             # time.sleep(2)  # sleep for two seconds to avoid repeat detection
-    time.sleep(1)
+    time.sleep(5)
 
 except KeyboardInterrupt:
     print("Closing...")
