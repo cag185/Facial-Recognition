@@ -20,7 +20,7 @@ GPIO.output(led_pin, GPIO.HIGH)
 def recordVideoLaptop(file_dest):
     print("inside function")
     # start a recording with CV2
-    cap = cv2.VideoCapture('/dev/video2')
+    cap = cv2.VideoCapture('/dev/video0')
     # check if camera opened
     if not cap.isOpened():
         print("Error: could not open camera.")
