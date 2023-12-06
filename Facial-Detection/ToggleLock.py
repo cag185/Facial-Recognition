@@ -52,7 +52,7 @@ class ToggleLockClass:
         time.sleep(2)
         ret, frame = self.cap.read()
         pil_image = Image.fromarray(frame)
-        pil_image.save(new_test_img)
+        pil_image.save(self.new_test_img)
 
     def getLabel(self):
         opened_img = np.asarray(Image.open(
