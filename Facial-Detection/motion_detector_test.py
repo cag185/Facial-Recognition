@@ -3,6 +3,7 @@
 import os
 import RPi.GPIO as GPIO
 import time
+import ToggleLock
 
 # set up the GPIO stuff
 MotionDetector_Pin = 10
@@ -11,6 +12,9 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(MotionDetector_Pin, GPIO.IN)
 print("GPIO configured")
 
+# create an instance of the ToggleLockClass
+toggleLock = ToggleLock.ToggleLockClass()
+
 # check for motion
 try:
     print("Motion detector now armed....")
@@ -18,7 +22,7 @@ try:
         if GPIO.input(MotionDetector_Pin):
             print("---Motion Detected---")
             # run the classifier toggle
-            import ToggleLock
+            toggleLock.callToggle()
             time.sleep(2)  # sleep for two seconds to avoid repeat detection
     time.sleep(0.1)
 
