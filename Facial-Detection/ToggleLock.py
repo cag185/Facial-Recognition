@@ -93,3 +93,4 @@ class ToggleLockClass:
         # run the functions to test
         self.newPhotoFromCam()
         self.getLabel()
+        time.sleep(1)

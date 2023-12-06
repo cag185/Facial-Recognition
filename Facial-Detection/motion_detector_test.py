@@ -24,7 +24,7 @@ try:
             # run the classifier toggle
             toggleLock.callToggle()
             time.sleep(2)  # sleep for two seconds to avoid repeat detection
-    time.sleep(0.1)
+    time.sleep(0.5)
 
 except KeyboardInterrupt:
     print("Closing...")
