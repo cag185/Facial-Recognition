@@ -75,14 +75,14 @@ class ToggleLockClass:
 
             new_image = (cv2.resize(face_roi, (100, 100)
                                     ).flatten()).reshape(1, -1)
-            prediction = lsvc.predict(new_image)
+            prediction = self.lsvc.predict(new_image)
             print(f"Prediction.....{prediction[0]}")
-            if (prediction[0] == authorized):
-                GPIO.output(led_pin, GPIO.HIGH)
-                GPIO.output(read_pin, GPIO.HIGH)
+            if (prediction[0] == self.authorized):
+                GPIO.output(self.led_pin, GPIO.HIGH)
+                GPIO.output(self.read_pin, GPIO.HIGH)
                 time.sleep(5)
-                GPIO.output(led_pin, GPIO.LOW)
-                GPIO.output(read_pin, GPIO.LOW)
+                GPIO.output(self.led_pin, GPIO.LOW)
+                GPIO.output(self.read_pin, GPIO.LOW)
                 print("The light is blinking....successful unlock")
             else:
                 print("the light is not on....door locked")
