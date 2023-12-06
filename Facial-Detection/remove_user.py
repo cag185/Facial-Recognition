@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # this file should be called with an input param which will delete the folders of that user
 import os
 import sys
