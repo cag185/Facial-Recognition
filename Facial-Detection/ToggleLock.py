@@ -33,7 +33,7 @@ class ToggleLockClass:
         lsvc = pickle.load(file)
 
     # initialize the camera
-    cap = cv2.VideoCapture('/dev/video2')
+    cap = cv2.VideoCapture('/dev/video0')
     # check if cam exposed
     if not (cap.isOpened()):
         print("Error cam not opened")
@@ -90,6 +90,6 @@ class ToggleLockClass:
             print("Something went wrong, no face detected")
 
     def callToggle(self):
-        # run the functions to test
-        newPhotoFromCam()
-        getLabel()
+        #run the functions to test
+        self.newPhotoFromCam()
+        self.getLabel()
