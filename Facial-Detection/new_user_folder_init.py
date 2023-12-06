@@ -41,7 +41,7 @@ def recordVideoLaptop(file_dest):
 
     # prepare to start recording
     print(".................................................................")
-    print("The camera is about to start recording for 5 seconds in 3 seconds. Please stare at the camera lens")
+    print("The camera is about to start recording for 10 seconds in 3 seconds. Please stare at the camera lens")
     print(".................................................................")
     time.sleep(3)
     start_time = time.time()
