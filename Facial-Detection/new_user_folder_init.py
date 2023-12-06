@@ -33,10 +33,7 @@ def recordVideoLaptop(file_dest):
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 
     # video duration
-    video_dur = 5
-
-    start_time = time.time()
-    end_time = start_time + video_dur
+    video_dur = 10
 
     # create a video file
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
@@ -44,9 +41,11 @@ def recordVideoLaptop(file_dest):
 
     # prepare to start recording
     print(".................................................................")
-    print("The camera is about to start recording for 5 seconds in 2 seconds.Please stare at the camera lens")
+    print("The camera is about to start recording for 5 seconds in 3 seconds. Please stare at the camera lens")
     print(".................................................................")
-    time.sleep(2)
+    time.sleep(3)
+    start_time = time.time()
+    end_time = start_time + video_dur
     while time.time() < end_time:
         # capture each frame
         ret, frame = cap.read()
@@ -100,11 +99,12 @@ def recordVideoPi(file_dest):
     # set the LED indicator to high
     GPIO.output(recording_indicator, GPIO.HIGH)
 
+    pic_count = 0
+    frame_array = []
+
     # start the recording
     start_time = time.time()
     end_time = start_time + 10
-    pic_count = 0
-    frame_array = []
     while (time.time() < end_time):
         frame_array.append(cam.capture_array())
     for frame in frame_array:
