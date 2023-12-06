@@ -50,13 +50,13 @@ class ToggleLockClass:
         # take the photo
         print("Prepare to take a picture in 2 seconds")
         time.sleep(2)
-        ret, frame = cap.read()
+        ret, frame = self.cap.read()
         pil_image = Image.fromarray(frame)
         pil_image.save(new_test_img)
 
     def getLabel(self):
         opened_img = np.asarray(Image.open(
-            new_test_img).convert('L'))
+            self.new_test_img).convert('L'))
 
         # try and use the haarcascade filter on the image to better work with the model
         haar_cascade = cv2.CascadeClassifier(
@@ -90,6 +90,6 @@ class ToggleLockClass:
             print("Something went wrong, no face detected")
 
     def callToggle(self):
-        #run the functions to test
+        # run the functions to test
         self.newPhotoFromCam()
         self.getLabel()
