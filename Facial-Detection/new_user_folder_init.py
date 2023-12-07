@@ -125,7 +125,7 @@ user_to_create = sys.argv[1]  # gets the first argument
 print(f"The user to create {user_to_create}")
 
 # # check if the folder does not exist currently
-folder = "~/Desktop/Facial-Recognition/Video-to-frames/video_to_split/"
+folder = "/home/molay/Desktop/Facial-Recognition/Video-to-frames/video_to_split/"
 folder_file = folder + user_to_create
 filer = ".mp4"
 # create the folder that points to the frame images
