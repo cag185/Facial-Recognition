@@ -13,7 +13,7 @@ user_to_delete = sys.argv[1]
 print(f"User to delete {user_to_delete}")
 
 # go to the mp4 file and delete it
-video_folder = "../Video-to-frames/video_to_split/"
+video_folder = "~/Desktop/Facial-Recognition/Video-to-frames/video_to_split/"
 path_to_remove = video_folder + user_to_delete + ".mp4"
 does_exist = os.path.exists(path_to_remove)
 if (does_exist):
@@ -22,7 +22,7 @@ else:
     print("path not found, mp4 video not here")
 
 # go to the haarcascade folder and delete it
-haar_cascade_folder = "../Video-to-frames/haar_cascade_frames/"
+haar_cascade_folder = "~/Desktop/Facial-Recognition/Video-to-frames/haar_cascade_frames/"
 path_to_remove = haar_cascade_folder + user_to_delete
 does_exist = os.path.exists(path_to_remove)
 if (does_exist):
@@ -33,7 +33,7 @@ else:
 
 
 # delete the individual frames
-haar_cascade_folder = "../Video-to-frames/frames/"
+haar_cascade_folder = "~/Desktop/Facial-Recognition/Video-to-frames/frames/"
 path_to_remove = haar_cascade_folder + user_to_delete
 does_exist = os.path.exists(path_to_remove)
 if (does_exist):
