@@ -24,7 +24,7 @@ class SVC_facial_detection():
         # parent_folder = "Facial-Profile-Databank/"
         # parent_folder = "Video-to-frames/haar_cascade_frames/"
         # parent_folder = "../Video-to-frames/haar_cascade_frames/"
-        parent_folder = "/home/molay/Desktop/Facial-Recognition/Video-to-frames/haar_cascade_frames"
+        parent_folder = "/home/molay/Desktop/Facial-Recognition/Video-to-frames/haar_cascade_frames/"
         face_list = os.listdir(parent_folder)
         flat_data_arr = []
         label_arr = []
