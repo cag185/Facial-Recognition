@@ -10,10 +10,10 @@ import cv2
 
 # load in the haarcascade
 haar_cascade = cv2.CascadeClassifier(
-    "~/Desktop/Facial-Recognition/XML/haarcascade_frontalface_default.xml")
+    "/home/molay/Desktop/Facial-Recognition/XML/haarcascade_frontalface_default.xml")
 
 # parent dir
-parent_dir = "~/Desktop/Facial-Recognition/Video-to-frames/frames/"
+parent_dir = "/home/molay/Desktop/Facial-Recognition/Video-to-frames/frames/"
 person_folders = os.listdir(parent_dir)
 
 # want to get the images in each persons directory
@@ -22,7 +22,7 @@ for person in person_folders:
     person_folder_path = parent_dir + person + "/"
     # check if the foler already exists so that we dont generate more files than needed
     folder = os.path.join(
-        "~/Desktop/Facial-Recognition/Video-to-frames/haar_cascade_frames/", person)
+        "/home/molay/Desktop/Facial-Recognition/Video-to-frames/haar_cascade_frames/", person)
     folderExists = os.path.exists(folder)
     if (not folderExists):
         # generate the folder
@@ -59,7 +59,7 @@ for person in person_folders:
                     face_roi = img[y:y+h, x:x+w]
 
                     # save the cropped photos to an output folder
-                    outfolder = "~/Desktop/Facial-Recognition/Video-to-frames/haar_cascade_frames/"
+                    outfolder = "/home/molay/Desktop/Facial-Recognition/Video-to-frames/haar_cascade_frames/"
 
                     # check if the persons folder already exists
                     person_out_folder = outfolder + person

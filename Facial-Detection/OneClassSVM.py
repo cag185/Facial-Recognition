@@ -24,7 +24,7 @@ class SVC_facial_detection():
         # parent_folder = "Facial-Profile-Databank/"
         # parent_folder = "Video-to-frames/haar_cascade_frames/"
         # parent_folder = "../Video-to-frames/haar_cascade_frames/"
-        parent_folder = "~/Desktop/Facial-Recognition/Video-to-frames/haar_cascade_frames"
+        parent_folder = "/home/molay/Desktop/Facial-Recognition/Video-to-frames/haar_cascade_frames"
         face_list = os.listdir(parent_folder)
         flat_data_arr = []
         label_arr = []
@@ -93,7 +93,7 @@ class SVC_facial_detection():
 
         self.testing_accuracy = accuracy_score(y_pred, y_test)
         print("Testing accuracy score: " + str(self.testing_accuracy))
-        with open('~/Desktop/Facial-Recognition/OCSVM_model.pkl', 'wb') as file:
+        with open('/home/molay/Desktop/Facial-Recognition/OCSVM_model.pkl', 'wb') as file:
             pickle.dump(OCSVM, file)
 
     # create the function for prediction/accuracy
@@ -101,7 +101,7 @@ class SVC_facial_detection():
     def predict(self, x_data):
         # load the model from storage
         # with open('../OCSVM_model.pkl', 'rb') as file2:
-        with open('~/Desktop/Facial-Recognition/OCSVM_model.pkl', 'rb') as file2:
+        with open('/home/molay/Desktop/Facial-Recognition/OCSVM_model.pkl', 'rb') as file2:
             lsvc_new = pickle.load(file2)
             return str(lsvc_new.predict(x_data))
 

@@ -4,12 +4,12 @@ import cv2
 import os
 
 # make the video bit more dynamic
-parent_folder = "~/Desktop/Facial-Recognition/Video-to-frames/video_to_split/"
+parent_folder = "/home/molay/Desktop/Facial-Recognition/Video-to-frames/video_to_split/"
 sub_files = os.listdir(parent_folder)
 # sub_files = ["Caleb_face.mp4", "Caleb_face_2.mp4", "Lucas_face.mp4", "Cam_face.mp4"]
 
 # create paths
-output_parent_directory = "~/Desktop/Facial-Recognition/Video-to-frames/frames/"
+output_parent_directory = "/home/molay/Desktop/Facial-Recognition/Video-to-frames/frames/"
 # output_arr = ["caleb_1/", "caleb_2/", "lucas/", "cam/"]
 
 file_count = 0

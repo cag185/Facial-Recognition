@@ -60,7 +60,7 @@ class ToggleLockClass:
 
         # try and use the haarcascade filter on the image to better work with the model
         haar_cascade = cv2.CascadeClassifier(
-            "~/Desktop/Facial-Recognition/XML/haarcascade_frontalface_default.xml")
+            "/home/molay/Desktop/Facial-Recognition/XML/haarcascade_frontalface_default.xml")
         faces_rect = haar_cascade.detectMultiScale(
             opened_img, scaleFactor=1.05, minNeighbors=15)
         # get just one face
